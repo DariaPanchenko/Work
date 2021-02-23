@@ -1,10 +1,20 @@
-
-
+import Header from './components/Header'
+import Footer from './components/Footer'
+import Iheader from './components/Iheader'
+import { Container } from 'react-bootstrap'
 function App() {
   return (
-    <div className="App">
+      <>
+      <Iheader/>
+      <Header/>
+      <main>
+          <Container>
+              <h4>Text</h4>
+          </Container>
 
-    </div>
+      </main>
+      <Footer/>
+      </>
   );
 }
 
