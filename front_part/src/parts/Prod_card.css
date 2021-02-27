@@ -1,0 +1,13 @@
+.subtitle{
+    margin-top: 30px;
+    font-family: Roboto;
+}
+.subtitle_header{
+    font-family: Roboto;
+}
+
+@font-face{
+    font-family:Roboto;
+    src: url("../fonts/roboto-thin_[allfont.ru].ttf");
+
+}
