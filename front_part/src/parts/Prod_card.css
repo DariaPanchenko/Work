@@ -11,3 +11,7 @@
     src: url("../fonts/roboto-thin_[allfont.ru].ttf");
 
 }
+.back{
+    font-family: Roboto;
+    float: right;
+}

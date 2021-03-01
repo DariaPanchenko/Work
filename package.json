@@ -1,0 +1,22 @@
+{
+  "name": "work",
+  "version": "1.0.0",
+  "description": "MyWork",
+  "main": "server.js",
+  "scripts": {
+    "start": "node back_part/server.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/DariaPanchenko/Work.git"
+  },
+  "author": "DariaPanchenko",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/DariaPanchenko/Work/issues"
+  },
+  "homepage": "https://github.com/DariaPanchenko/Work#readme",
+  "dependencies": {
+    "express": "^4.17.1"
+  }
+}
