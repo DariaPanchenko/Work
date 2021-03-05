@@ -1,5 +1,5 @@
 .img__header{
-    background: url("../pic/marble.jpg") no-repeat;
+    background: url("marble.jpg") no-repeat;
     background-size: 100%;
     display: flex;
     align-items: center;
@@ -18,6 +18,6 @@
 
 @media (max-width: 507px) {
     .img__header{
-        background: url("../pic/marble.jpg");
+        background: url("marble.jpg");
     }
 }

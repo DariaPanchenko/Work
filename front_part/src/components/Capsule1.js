@@ -4,7 +4,7 @@ import {Link} from 'react-router-dom'
 const Capsule1=({Capsule})=>{
     return(
         <Card className='my-3 p-3 rounded'>
-                <Card.Img src={Capsule.picture} variant='top'/>
+                <img src={Capsule.picture} variant='top' alt={Capsule.picture}/>
             <Card.Body>
                 <Card.Title as='div'>
                     <strong>{Capsule.name}</strong>
