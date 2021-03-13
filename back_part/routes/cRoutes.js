@@ -7,6 +7,7 @@ router.get('/',expressAsyncHandler(async (req,res)=>{
     const Capsules = await Capsule.find({})
     res.json(Capsules)
 }))
+
 router.get('/:id',expressAsyncHandler(async (req,res)=>{
     const capsule = await Capsule.findById(req.params.id)
     if(capsule){
