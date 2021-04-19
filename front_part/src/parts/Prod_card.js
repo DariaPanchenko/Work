@@ -1,31 +1,31 @@
 import {Row,Col} from 'react-bootstrap'
 import Capsule1 from '../components/Capsule1'
-import { useState, useEffect } from 'react'
-import axios from 'axios'
+import { useEffect } from 'react'
+import {useDispatch} from 'react-redux'
+import {useSelector} from 'react-redux'
+import {allCpsles} from '../actions/capsuleActions'
 import './Prod_card.css'
 
 const Prod_card = () =>{
-    const [Capsules, setCapsules]=useState([])
+   // const [Capsules, setCapsules]=useState([])
+    const dispatch = useDispatch()
+    const allCapsules = useSelector(state =>state.allCapsules)
+    const  {error,Capsules} = allCapsules
     useEffect(()=>{
-        const fetchCapsules = async()=>{
-            const {data}= await axios.get('api/capsules')
-            setCapsules(data)
-        }
-    fetchCapsules()
-    },[])
-
+        dispatch(allCpsles())
+    },[dispatch])
     return(
         <>
             <div className='subtitle'>
                <h2>Доступные подборки</h2>
             </div>
-            <Row>
+            {Capsules?<Row>
                 {Capsules.map(Capsule =>(
                     <Col  sm={3} md={6} lg={3} xl={4}>
                         <Capsule1 Capsule={Capsule}/>
                     </Col>
                 ))}
-            </Row>
+            </Row>:<h2>{error}</h2>}
         </>
     )
 }

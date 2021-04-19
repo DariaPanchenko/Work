@@ -1,5 +1,5 @@
 import mongoose from 'mongoose'
-
+import bcrypt from 'bcryptjs'
 
 const usrForm = mongoose.Schema({
     name:{
@@ -24,9 +24,19 @@ const usrForm = mongoose.Schema({
         type: Number,
         required: true,
         default: 0
+    },
+    resetLinkPass:{
+        data: String,
+        default:''
     }
 },{timestamps:true})
 
-const User = mongoose.model('User',usrForm)
-
+usrForm.methods.matchPassword = async function(enterPassword) {
+    return await bcrypt.compare(enterPassword,this.password)
+}
+usrForm.pre('save', async function (next) {   if(!this.isModified('password')){next()}
+    const salt = await bcrypt.genSalt(10)
+    this.password = await bcrypt.hash(this.password, salt)
+})
+const User = mongoose.model('User', usrForm)
 export default User

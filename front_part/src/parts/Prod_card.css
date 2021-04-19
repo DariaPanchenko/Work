@@ -2,7 +2,9 @@
     font-family: Roboto_Thin;
     margin-top: 30px;
 }
-
+.subtitle__header{
+    font-family: Roboto_Thin;
+}
 @font-face{
     font-family:Roboto_Thin;
     src: url("../fonts/roboto-thin_[allfont.ru].ttf");
