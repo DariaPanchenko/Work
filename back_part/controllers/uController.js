@@ -1,17 +1,15 @@
 import User from '../my_db/userMod.js'
 import expressAsyncHandler from 'express-async-handler'
 import genToken from '../other/genTok.js'
-//import genToken2 from '../other/genTok2.js'
 import asyncHandler from 'express-async-handler'
 import dotenv from 'dotenv'
 import NodeMailer from 'nodemailer'
 dotenv.config()
-
 const transporter = NodeMailer.createTransport({
     service: 'gmail',
     auth: {
-        user: 'dpancenko254@gmail.com',
-        pass: 'kee4ds89hl'
+        user: 'pancenkodara64@gmail.com',
+        pass: process.env.EMAIL,
     },
     tls: {
         rejectUnauthorized: false
@@ -47,7 +45,7 @@ const restoreUser = asyncHandler(async (req, res) => {
     if (user) {
         let password = Math.random().toString(36).substring(7);
         await transporter.sendMail({
-            from: 'dpancenko254@gmail.com',
+            from: 'pancenkodara64@gmail.com',
             to: email,
             subject: 'New password',
             html: '<p>Нажмите на <a href="http://localhost:3000/login">ссылку</a> чтобы зайти с новым паролем - ' + password + '</p>'

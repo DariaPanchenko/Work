@@ -85,7 +85,7 @@ const Prod_single_page = ({ history, match }) => {
                                     <Button disabled={broadcastCapsuleComm} className='btn-dark w-30' type='submit' variant='primary'>
                                         Отправить
                                     </Button>
-                                </Form>) : (<h2><Link to='/login'>Войдите</Link> чтобы оставить комментарий{' '}</h2>
+                                </Form>) : (<h4><Link to='/login'>Войдите</Link> чтобы оставить комментарий{' '}</h4>
                             )}
                         </ListGroup.Item>
                     </ListGroup>
