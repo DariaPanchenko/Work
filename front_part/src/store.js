@@ -3,11 +3,14 @@ import {combineReducers} from 'redux'
 import {applyMiddleware} from 'redux'
 import {composeWithDevTools} from 'redux-devtools-extension';
 import thunk from 'redux-thunk'
-import {allCapsulesReducer, CapsuleSingleReducer} from './reducers/capsuleResucers.js'
+import {allCapsulesReducer, CapsuleSingleReducer, CapsuleCommReducer} from './reducers/capsuleResucers.js'
 import {cartReducer} from './reducers/cartReducers.js'
-import {uLoginReducer, uRegisterReducer} from './reducers/uReducers.js'
+import {uLoginReducer, uRegisterReducer, uForgotPassReducer,
+    uResetPassReducer, uParamReducer, uUpdProfReducer} from './reducers/uReducers.js'
 
-const reducer = combineReducers( {allCapsules: allCapsulesReducer, capsuleSingle:CapsuleSingleReducer,cart: cartReducer, userLog: uLoginReducer, userRegister: uRegisterReducer,})
+const reducer = combineReducers( {allCapsules: allCapsulesReducer, capsuleSingle:CapsuleSingleReducer, capsuleComm:CapsuleCommReducer,
+    cart: cartReducer, userLog: uLoginReducer, userRegister: uRegisterReducer, userForgotPass:uForgotPassReducer,
+    userResetPass:uResetPassReducer, userParam: uParamReducer, userUpdProf: uUpdProfReducer})
 const cartItmsFromStor = localStorage.getItem('cartItems')?JSON.parse(localStorage.getItem('cartItems')):[]
 const uInfFromStor = localStorage.getItem('uInf')?JSON.parse(localStorage.getItem('uInf')):null
 const initialState = {cart: {cartItems: cartItmsFromStor}, userLog:{uInf:uInfFromStor}}

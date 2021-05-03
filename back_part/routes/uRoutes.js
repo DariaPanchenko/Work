@@ -2,7 +2,7 @@ import jwt from 'jsonwebtoken'
 import User from '../my_db/userMod.js'
 import asyncHandler from 'express-async-handler'
 import express from 'express'
-import {authorizationUser, registrationUser, userProfile, userProfileUpd, userForgotPass, userResetPass } from '../controllers/uController.js'
+import {authorizationUser, restoreUser, registrationUser, userProfile, userProfileUpd/*, userForgotPass, userResetPass*/ } from '../controllers/uController.js'
 const router = express.Router()
 
 const security = asyncHandler(async (req,res,next) =>{
@@ -26,9 +26,9 @@ const security = asyncHandler(async (req,res,next) =>{
     }
 
 })
+
 router.route('/').post(registrationUser)
 router.post('/login',authorizationUser)
-router.put('/forgotpass',userForgotPass)
-router.put('/resetpass',userResetPass)
+router.route('/restore').post(restoreUser)
 router.route('/profile').get(security, userProfile).put(security, userProfileUpd)
 export default router

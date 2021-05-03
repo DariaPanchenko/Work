@@ -46,7 +46,7 @@ const Log_page = ({location, history}) =>{
             </Row>
             <Row>
                 <Col>
-                    Забыли пароль?{' '}<Link to={'/forgotpass'}>Восстановить</Link>
+                    Забыли пароль?{' '}<Link to={'/forgot'}>Восстановить</Link>
                 </Col>
             </Row>
         </Iform>

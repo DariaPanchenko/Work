@@ -12,9 +12,9 @@ const Capsule1=({Capsule, addItem, history, match})=>{
     useEffect(()=>{
         dispatch(cpslesSingle(Capsule._id))
     },[dispatch,match])
-    const addToBasket =()=>{
+   /* const addToBasket =()=>{
         history.push(`/cart/${Capsule._id}`)
-    }
+    }*/
     return(
         <Card className='my-3 p-3 rounded'>
                 <img src={Capsule.picture} variant='top' alt={Capsule.picture}/>
@@ -27,11 +27,10 @@ const Capsule1=({Capsule, addItem, history, match})=>{
                 <Card.Text as='h6'>{Capsule.contact}</Card.Text>
                 <Link to={`/capsule/${Capsule._id}`}>
                     <Card.Title as='div'>
-                        <strong> Просмотр и комментарии: {Capsule.comm}</strong>
+                        <strong> Просмотр и комментарии: {Capsule.countStock}</strong>
                     </Card.Title>
                 </Link>
                 <Card.Text as='h4'>{Capsule.price} ₽</Card.Text>
-                <Button onClick={addToBasket} className='btn-dark w-30' type='button'>Хочу купить</Button>
             </Card.Body>
         </Card>
     )

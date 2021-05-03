@@ -11,7 +11,7 @@ const Cart_card = ({match,history}) => {
     const dispatch = useDispatch()
     const cart = useSelector(state=>state.cart)
     const {cartItems} = cart
-    console.log(cartItems)
+    //console.log(cartItems)
     useEffect(()=>{
         if(capsId){
             dispatch(addItem(capsId))
@@ -21,16 +21,21 @@ const Cart_card = ({match,history}) => {
     const removeItem =(id)=>{
        dispatch(remItem(id))
     }
- const procCheckout =()=>{
+ /*const procCheckout =()=>{
      history.push('/login?redirect=buy')
- }
+ }*/
+
+    const checkoutForBuy= () => {
+        history.push('/payment')
+    }
     return(
         <Row>
-            <Col md={8}>
+            <Col md={6}>
                 <div className='subtitle'>
                      <h3>Продолжить покупку</h3>
                 </div>
                 {cartItems.length ===0?<h3>Пусто</h3>:(
+                    <Card>
                     <ListGroup variant='flush'>
                         {cartItems.map(itm => (
                             <ListGroup.Item key={itm.caps}>
@@ -52,9 +57,21 @@ const Cart_card = ({match,history}) => {
                                 </Row>
                             </ListGroup.Item>
                         ))}
-                    </ListGroup>)}
+                    </ListGroup>
+                    </Card>)}
             </Col>
-            <Button type='button' className='btn-dark w-50' disabled={cartItems.length===0} onClick={procCheckout}>Оформить заказ</Button>
+            <Col md={8}>
+                    <ListGroup variant='flush' className='subtitle'>
+                        <ListGroup.Item>
+                            <h5 className='subtitle'>
+                                Общая сумма - {cartItems.reduce((acc, item) => acc + item.price, 0).toFixed(2)} ₽
+                            </h5>
+                            <Button type='button' className="btn-dark">
+                                Купить
+                            </Button>
+                        </ListGroup.Item>
+                    </ListGroup>
+            </Col>
         </Row>
     )
 }

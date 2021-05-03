@@ -21,7 +21,17 @@ export const cartReducer = (state = {cartItems:[]},action) => {
                 ...state,
                 cartItems: state.cartItems.filter((i)=>i.Capsule !== action.payload)
             }
-        default:
+        case actionTypes.CART_ALL_DEL:
+            return {
+                ...state,
+                cartItems: [],
+            }
+        case actionTypes.CART_SAVE_BUY:
+            return {
+                ...state,
+                buyCaps: action.payload,
+            }
+            default:
             return state
     }
 }

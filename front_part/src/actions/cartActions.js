@@ -11,6 +11,8 @@ export const addItem = (id)=>async (dispatch, getState)=>{
             name:data.name,
             picture:data.picture,
             price:data.price,
+            link: data.link,
+            author: data.author,
         },
     })
     localStorage.setItem('cartItems',JSON.stringify(getState().cart.cartItems))
@@ -22,4 +24,13 @@ export const remItem = (id) =>(dispatch,getState)=>{
         payload: id
     })
     localStorage.setItem('cartItems',JSON.stringify(getState().cart.cartItems))
+}
+
+export const saveBuyCapsule = (data) => (dispatch) => {
+    dispatch({
+        type: actionTypes.CART_SAVE_BUY,
+        payload: data,
+    })
+
+    localStorage.setItem(' buyCaps', JSON.stringify(data))
 }

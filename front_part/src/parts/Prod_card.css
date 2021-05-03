@@ -10,3 +10,17 @@
     src: url("../fonts/roboto-thin_[allfont.ru].ttf");
 
 }
+
+.clr__background{
+    background: #888888;
+
+}
+.window__background{
+    background: #343a40;
+}
+
+.scroll__pg{
+    width: 32em;
+    height: 35em;
+    overflow: scroll;
+}

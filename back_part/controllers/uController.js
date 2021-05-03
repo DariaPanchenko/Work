@@ -1,15 +1,22 @@
 import User from '../my_db/userMod.js'
 import expressAsyncHandler from 'express-async-handler'
 import genToken from '../other/genTok.js'
-import genToken2 from '../other/genTok2.js'
+//import genToken2 from '../other/genTok2.js'
 import asyncHandler from 'express-async-handler'
 import dotenv from 'dotenv'
-import _ from 'lodash'
-import jwt from 'jsonwebtoken'
+import NodeMailer from 'nodemailer'
 dotenv.config()
-import mailgun from 'mailgun-js'
-const DOMAIN = 'sandboxf9bd8753d17249438e120eab3ca046da.mailgun.org'
-const mg = mailgun({apiKey: process.env.MAILGUN_APIKEY, domain: DOMAIN})
+
+const transporter = NodeMailer.createTransport({
+    service: 'gmail',
+    auth: {
+        user: 'dpancenko254@gmail.com',
+        pass: 'kee4ds89hl'
+    },
+    tls: {
+        rejectUnauthorized: false
+    }
+})
 
 // POST /api/users/login
 // Auth user and get token
@@ -29,7 +36,34 @@ const authorizationUser=expressAsyncHandler(async (req,res)=>{
         res.status(401).json({message:'Неверный email или пароль'})
     }
 })
+// @desc    Restore password
+// @route   POST /api/restore
+// @access  Public
+const restoreUser = asyncHandler(async (req, res) => {
+    const { email } = req.body
 
+    const user = await User.findOne({ email })
+
+    if (user) {
+        let password = Math.random().toString(36).substring(7);
+        await transporter.sendMail({
+            from: 'dpancenko254@gmail.com',
+            to: email,
+            subject: 'New password',
+            html: '<p>Нажмите на <a href="http://localhost:3000/login">ссылку</a> чтобы зайти с новым паролем - ' + password + '</p>'
+        }, (error, info) => {
+            console.log(error);
+            if(info!==undefined){
+                user.password = password;
+                user.save();
+            }
+        })
+        res.status(200);
+    } else {
+        res.status(401)
+        throw new Error('Invalid email')
+    }
+})
 // POST /api/users
 // User registration
 const registrationUser=asyncHandler(async (req,res)=>{
@@ -108,72 +142,4 @@ const userProfileUpd = asyncHandler(async (req,res)=>{
     }
 })
 
-// PUT /api/users/forgotpass
-// link and get token
-const userForgotPass = asyncHandler(async (req,res)=>{
-    const {email} =req.body
-    const user = await User.findOne({email})
-    if(!user){
-        res.status(400)
-        throw new Error('Пользователя нет с таким email')
-    } else {
-        const token = genToken2(user._id)
-        const data = {
-            from: 'noreply@blook.com',
-            to: email,
-            subject: 'Ссылка для восстановления пароля',
-            html: `<h2>Нажмите на эту ссылку,чтобы сбросить пароль</h2>
-            <p>http://localhost:3000/resetpass/${token}</p>`
-        }
-        return user.updateOne({resetLinkPass:token}, (error) => {
-                if (error) {
-                    return res.status(400).json({error: 'Ошибка ссылки'})
-                } else {
-                    mg.messages().send(data,function (err,body){
-                        if(err){
-                            return res.json({
-                                error: err.message
-                            })
-                        }
-                        return res.json({message: 'Письмо отправлено, проверьте вашу почту'})
-                    })
-                }
-            })
-    }
-})
-
-// PUT /api/users/resetpass
-// reset pass
-const userResetPass = asyncHandler(async (req,res)=>{
-    const {resetLinkPass,newPass} = req.body
-    if(resetLinkPass){
-        jwt.verify(resetLinkPass, process.env.RESET_PASS, async (error)=>{
-            if(error){
-                res.status(401).json({error:'Неверный токен'})
-            }
-            await User.findOne({resetLinkPass},(error,user)=>{
-                if(!user){
-                    res.status(400).json({error:'Пользователя нет с таким токеном'})
-                    throw new Error('Пользователя нет с таким токеном')
-                } else{
-                    const resetUs = {
-                        password: newPass,
-                        resetLinkPass:''
-                    }
-                    user = _.extend(user,resetUs)
-                    user.save((error)=>{
-                        if (error) {
-                            return res.status(400).json({error: 'Ошибка сброса пароля'})
-                        } else {
-                                return res.status(200).json({message: 'Вы успешно сменили пароль'})
-                        }
-                    })
-                }
-            })
-        })
-    }else{
-        res.status(401).json({error:'Ошибка аутентификации'})
-    }
-
-})
-export {authorizationUser,registrationUser, userProfile, userProfileUpd, userForgotPass, userResetPass}
+export {authorizationUser,restoreUser, registrationUser, userProfile, userProfileUpd}

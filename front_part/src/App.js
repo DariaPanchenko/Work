@@ -9,6 +9,8 @@ import Cart_card from './parts/Cart_card'
 import Log_page from './parts/Log_page'
 import Reg_page from './parts/Reg_page'
 import Forgot_pass from './parts/Forgot_pass'
+import Reset_pass from './parts/Reset_pass'
+import Prof_page from './parts/Prof_page'
 function App() {
   return (
       <Router>
@@ -18,10 +20,12 @@ function App() {
           <Container>
               <Route exact path='/' component={Prod_card} />
               <Route path='/capsule/:id' component={Prod_single_page} />
-              <Route path='/cart/:id' component={Cart_card} />
+              <Route path='/cart/:id?' component={Cart_card} />
               <Route path='/login' component={Log_page} />
               <Route path='/register' component={Reg_page} />
-              <Route path='/forgotpass' component={Forgot_pass} />
+              <Route path='/forgot' component={Forgot_pass} />
+              <Route path='/resetpass/:id' component={Reset_pass} />
+              <Route path='/profile' component={Prof_page}/>
           </Container>
       </main>
       <Footer/>

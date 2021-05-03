@@ -3,6 +3,7 @@ import { LinkContainer } from 'react-router-bootstrap'
 import{useDispatch, useSelector} from 'react-redux'
 import '../parts/Prod_card.css'
 import {logout} from '../actions/userActions'
+import {Route} from "react-router-dom";
 const Header = () => {
     const userLog=useSelector(state=>state.userLog)
     const{uInf} = userLog
@@ -18,6 +19,9 @@ const Header = () => {
                     <Navbar.Toggle aria-controls="basic-navbar-nav" />
                     <Navbar.Collapse id="basic-navbar-nav">
                         <Nav className="ml-auto">
+                            { uInf &&  <LinkContainer to='/cart'>
+                                <Nav.Link className='subtitle__header'>Корзина</Nav.Link>
+                            </LinkContainer>}
                            {uInf && <LinkContainer to='/profile'>
                                     <Nav.Link className='subtitle__header'>{uInf.name}</Nav.Link>
                                 </LinkContainer> }
