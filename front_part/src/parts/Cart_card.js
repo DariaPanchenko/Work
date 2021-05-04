@@ -26,7 +26,7 @@ const Cart_card = ({match,history}) => {
  }*/
 
     const checkoutForBuy= () => {
-        history.push('/payment')
+        history.push('/buy')
     }
     return(
         <Row>
@@ -35,30 +35,30 @@ const Cart_card = ({match,history}) => {
                      <h3>Продолжить покупку</h3>
                 </div>
                 {cartItems.length ===0?<h3>Пусто</h3>:(
-                    <Card>
                     <ListGroup variant='flush'>
-                        {cartItems.map(itm => (
-                            <ListGroup.Item key={itm.caps}>
+                        {cartItems.map((itm) => (
+                            <ListGroup.Item key={itm.capsule}>
+                                <Card>
                                 <Row>
                                     <Col md={2}>
                                         <Image src={itm.picture} alt={itm.name} fluid rounded/>
                                     </Col>
                                     <Col md={3}>
-                                        <Link to={`/capsule/${itm.caps}`}>{itm.name}</Link>
+                                        <Link to={`/capsule/${itm.capsule}`}>{itm.name}</Link>
                                     </Col>
                                     <Col md={2}>
                                         {itm.price} ₽
                                     </Col>
                                     <Col md={2}>
-                                        <Button type='button' variant='light' onClick={()=>removeItem(itm.Capsule)}>
+                                        <Button type='button' variant='light' onClick={()=>removeItem(itm.capsule)}>
                                             <i className='delett'>Удалить</i>
                                         </Button>
                                     </Col>
                                 </Row>
+                            </Card>
                             </ListGroup.Item>
                         ))}
-                    </ListGroup>
-                    </Card>)}
+                    </ListGroup>)}
             </Col>
             <Col md={8}>
                     <ListGroup variant='flush' className='subtitle'>

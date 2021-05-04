@@ -27,7 +27,7 @@ const Capsule1=({Capsule, addItem, history, match})=>{
                 <Card.Text as='h6'>{Capsule.contact}</Card.Text>
                 <Link to={`/capsule/${Capsule._id}`}>
                     <Card.Title as='div'>
-                        <strong> Просмотр и комментарии: {Capsule.countStock}</strong>
+                        <strong> Просмотр и комментарии: {Capsule.countComm}</strong>
                     </Card.Title>
                 </Link>
                 <Card.Text as='h4'>{Capsule.price} ₽</Card.Text>

@@ -60,7 +60,7 @@ const Prod_single_page = ({ history, match }) => {
                      </div>
                 </Col>
                 <Col md={5} className="clr__background">
-                    <h5 className="subtitle">Отзывы ({capsule.countStock})</h5>
+                    <h5 className="subtitle">Отзывы ({capsule.countComm})</h5>
                     {capsule.comms.length === 0 && <h4>Нет отзывов</h4>}
                     <ListGroup variant='flush' className="clr__background">
                         <div className="scroll__pg">

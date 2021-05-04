@@ -7,7 +7,7 @@ export const addItem = (id)=>async (dispatch, getState)=>{
     dispatch({
         type: actionTypes.CART_ADD_EL,
         payload:{
-            caps: data._id,
+            capsule: data._id,
             name:data.name,
             picture:data.picture,
             price:data.price,

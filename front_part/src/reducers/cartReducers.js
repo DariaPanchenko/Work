@@ -1,14 +1,13 @@
 import actionTypes from './actionTypes.js'
-
 export const cartReducer = (state = {cartItems:[]},action) => {
     switch (action.type){
         case  actionTypes.CART_ADD_EL:
             const itm= action.payload
-            const existItm = state.cartItems.find((i)=>i.Capsule === itm.Capsule)
+            const existItm = state.cartItems.find((x)=>x.capsule === itm.capsule)
             if(existItm){
             return {
                 ...state,
-                cartItems: state.cartItems.map((i)=>i.Capsule===existItm.Capsule?itm:i)
+                cartItems: state.cartItems.map((x)=>x.capsule===existItm.capsule?itm:x)
             }
            } else{
             return {
@@ -19,7 +18,7 @@ export const cartReducer = (state = {cartItems:[]},action) => {
         case actionTypes.CART_REM_EL:
             return {
                 ...state,
-                cartItems: state.cartItems.filter((i)=>i.Capsule !== action.payload)
+                cartItems: state.cartItems.filter((x)=>x.capsule!== action.payload)
             }
         case actionTypes.CART_ALL_DEL:
             return {

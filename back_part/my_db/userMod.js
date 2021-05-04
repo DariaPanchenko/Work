@@ -25,9 +25,9 @@ const usrForm = mongoose.Schema({
         required: true,
         default: 0
     },
-    resetLinkPass:{
+    passcode:{
         data: String,
-        default:''
+        required: false
     }
 },{timestamps:true})
 

@@ -25,10 +25,6 @@ const ordForm = mongoose.Schema({
             ref:'Capsule'
         }
     }],
-    email:{
-        type: String,
-        required: true
-    },
     payment:{
         type: String,
         required: true
@@ -38,11 +34,6 @@ const ordForm = mongoose.Schema({
         res: {type:String},
         update_time: {type:String},
         email_addr: {type:String}
-    },
-    dopPrice:{
-        type: Number,
-        required: true,
-        default: 0.0
     },
     allPrice:{
         type: Number,

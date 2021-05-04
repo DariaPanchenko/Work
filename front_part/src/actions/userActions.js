@@ -24,7 +24,9 @@ export const login = (email,password) =>async (dispatch)=>{
 
 export const logout =() =>(dispatch)=>{
     localStorage.removeItem('uInf')
+    localStorage.removeItem('cartItems')
     dispatch({type:actionTypes.USER_LOGOUT})
+    document.location.href = '/login'
 }
 
 export const register = (name, email,password) =>async (dispatch)=>{

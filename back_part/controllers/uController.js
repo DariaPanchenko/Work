@@ -5,6 +5,7 @@ import asyncHandler from 'express-async-handler'
 import dotenv from 'dotenv'
 import NodeMailer from 'nodemailer'
 dotenv.config()
+
 const transporter = NodeMailer.createTransport({
     service: 'gmail',
     auth: {

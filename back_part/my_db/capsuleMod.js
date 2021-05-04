@@ -47,12 +47,16 @@ const capsuleForm = mongoose.Schema({
         type: String,
         required: true,
     },
+    link: {
+        type: String,
+        required: true,
+    },
     price:{
         type: Number,
         required: true,
         default: 0
     },
-    countStock:{
+    countComm:{
         type: Number,
         required: true,
         default: 0
