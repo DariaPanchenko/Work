@@ -1,6 +1,5 @@
 import actionTypes from './actionTypes.js'
 
-
 export const uLoginReducer = (state= { },action) =>{
     switch (action.type){
         case actionTypes.USER_LOG_REQ:

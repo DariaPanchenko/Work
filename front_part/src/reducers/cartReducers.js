@@ -28,7 +28,7 @@ export const cartReducer = (state = {cartItems:[]},action) => {
         case actionTypes.CART_SAVE_BUY:
             return {
                 ...state,
-                buyCaps: action.payload,
+                paymentMethod: action.payload,
             }
             default:
             return state

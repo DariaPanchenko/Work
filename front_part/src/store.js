@@ -7,10 +7,12 @@ import {allCapsulesReducer, CapsuleSingleReducer, CapsuleCommReducer} from './re
 import {cartReducer} from './reducers/cartReducers.js'
 import {uLoginReducer, uRegisterReducer, uForgotPassReducer,
     uResetPassReducer, uParamReducer, uUpdProfReducer} from './reducers/uReducers.js'
+import {madeOrderReducer, orderIdReducer } from './reducers/paidRedusers.js'
 
-const reducer = combineReducers( {allCapsules: allCapsulesReducer, capsuleSingle:CapsuleSingleReducer, capsuleComm:CapsuleCommReducer,
-    cart: cartReducer, userLog: uLoginReducer, userRegister: uRegisterReducer, userForgotPass:uForgotPassReducer,
-    userResetPass:uResetPassReducer, userParam: uParamReducer, userUpdProf: uUpdProfReducer})
+const reducer = combineReducers( {allCapsules: allCapsulesReducer, capsuleSingle:CapsuleSingleReducer,
+    capsuleComm:CapsuleCommReducer, cart: cartReducer, userLog: uLoginReducer, userRegister: uRegisterReducer,
+    userForgotPass:uForgotPassReducer, userResetPass:uResetPassReducer, userParam: uParamReducer,
+    userUpdProf: uUpdProfReducer, madeOrder: madeOrderReducer, orderId: orderIdReducer})
 const cartItmsFromStor = localStorage.getItem('cartItems')?JSON.parse(localStorage.getItem('cartItems')):[]
 const uInfFromStor = localStorage.getItem('uInf')?JSON.parse(localStorage.getItem('uInf')):null
 const initialState = {cart: {cartItems: cartItmsFromStor}, userLog:{uInf:uInfFromStor}}

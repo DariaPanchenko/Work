@@ -2,6 +2,7 @@ import express from 'express'
 import connection_DB from './config/database.js'
 import cRoutes from './routes/cRoutes.js'
 import uRoutes from './routes/uRoutes.js'
+import pRoutes from './routes/pRoutes.js'
 import dotenv from 'dotenv'
 const app = express()
 dotenv.config()
@@ -13,6 +14,7 @@ app.get('/',(req,res)=>{
 })
 app.use('/api/capsules',cRoutes)
 app.use('/api/users',uRoutes)
+app.use('/api/paid_orders', pRoutes)
 
 app.use((err,req,res,next) => {
     const statusCode = (res.statusCode === 200)?200:res.statusCode
@@ -25,7 +27,7 @@ app.use((err,req,res,next) => {
 })
 
 
-const PORT = process.env.PORT || 5000
+const PORT = process.env.PORT || 5001
 app.listen(PORT, console.log(`Server - OK on the port ${PORT}`))
 
 

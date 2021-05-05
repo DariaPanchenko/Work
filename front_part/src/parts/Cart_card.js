@@ -66,7 +66,7 @@ const Cart_card = ({match,history}) => {
                             <h5 className='subtitle'>
                                 Общая сумма - {cartItems.reduce((acc, item) => acc + item.price, 0).toFixed(2)} ₽
                             </h5>
-                            <Button type='button' className="btn-dark">
+                            <Button type='button' className="btn-dark" disabled={cartItems.length === 0} onClick={checkoutForBuy}>
                                 Купить
                             </Button>
                         </ListGroup.Item>

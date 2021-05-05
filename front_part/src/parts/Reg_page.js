@@ -32,7 +32,6 @@ const Reg_page = ({location, history}) =>{
         dispatch(register(name,email,password))
         }
     }
-
     return(
         <Iform>
             <h2>Регистрация</h2>

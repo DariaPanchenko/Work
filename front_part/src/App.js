@@ -11,6 +11,9 @@ import Reg_page from './parts/Reg_page'
 import Forgot_pass from './parts/Forgot_pass'
 import Reset_pass from './parts/Reset_pass'
 import Prof_page from './parts/Prof_page'
+import Buy_page from './parts/Buy_page'
+import Pay_page from './parts/Pay_page'
+import Paid_orders_page from './parts/Paid_orders_page'
 function App() {
   return (
       <Router>
@@ -26,6 +29,9 @@ function App() {
               <Route path='/forgot' component={Forgot_pass} />
               <Route path='/resetpass/:id' component={Reset_pass} />
               <Route path='/profile' component={Prof_page}/>
+              <Route path='/buy' component={Buy_page}/>
+              <Route path='/allpayment' component={Pay_page}/>
+              <Route path='/order/:id' component={Paid_orders_page}/>
           </Container>
       </main>
       <Footer/>
