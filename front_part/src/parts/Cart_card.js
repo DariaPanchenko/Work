@@ -3,7 +3,7 @@ import {useEffect} from 'react'
 import {useDispatch} from 'react-redux'
 import {useSelector} from 'react-redux'
 import {Row,Col,ListGroup,Image,Button,Card,Form} from "react-bootstrap";
-import {addItem, remItem} from  '../actions/cartActions.js'
+import {addItem, remItem, saveBuyCapsule} from '../actions/cartActions.js'
 import './Prod_card.css'
 
 const Cart_card = ({match,history}) => {
@@ -26,19 +26,23 @@ const Cart_card = ({match,history}) => {
  }*/
 
     const checkoutForBuy= () => {
-        history.push('/buy')
+       /* history.push('/buy')*/
+        dispatch(saveBuyCapsule('SavePay'))
+        history.push('/allpayment')
     }
     return(
         <Row>
-            <Col md={6}>
-                <div className='subtitle'>
-                     <h3>Продолжить покупку</h3>
-                </div>
+            <Col md={6} className="mx-auto">
+                <Card>
+                    <img className="card-img" src={'../../pic/fon.png'} alt="fon"/>
+                    <div className="card-img-overlay">
+                        <div>
+                            <h4 className="subtitle">Подборки</h4>
+                        </div>
                 {cartItems.length ===0?<h3>Пусто</h3>:(
                     <ListGroup variant='flush'>
                         {cartItems.map((itm) => (
-                            <ListGroup.Item key={itm.capsule}>
-                                <Card>
+                            <div key={itm.capsule}>
                                 <Row>
                                     <Col md={2}>
                                         <Image src={itm.picture} alt={itm.name} fluid rounded/>
@@ -47,30 +51,26 @@ const Cart_card = ({match,history}) => {
                                         <Link to={`/capsule/${itm.capsule}`}>{itm.name}</Link>
                                     </Col>
                                     <Col md={2}>
-                                        {itm.price} ₽
+                                        <h5 className="subtitle__header">{itm.price} ₽</h5>
                                     </Col>
-                                    <Col md={2}>
-                                        <Button type='button' variant='light' onClick={()=>removeItem(itm.capsule)}>
+                                    <Col md={3}>
+                                        <Button type='button' className="btn-dark" variant='light' onClick={()=>removeItem(itm.capsule)}>
                                             <i className='delett'>Удалить</i>
                                         </Button>
                                     </Col>
                                 </Row>
-                            </Card>
-                            </ListGroup.Item>
+                            </div>
                         ))}
                     </ListGroup>)}
-            </Col>
-            <Col md={8}>
-                    <ListGroup variant='flush' className='subtitle'>
-                        <ListGroup.Item>
-                            <h5 className='subtitle'>
-                                Общая сумма - {cartItems.reduce((acc, item) => acc + item.price, 0).toFixed(2)} ₽
-                            </h5>
-                            <Button type='button' className="btn-dark" disabled={cartItems.length === 0} onClick={checkoutForBuy}>
-                                Купить
-                            </Button>
-                        </ListGroup.Item>
-                    </ListGroup>
+                        <h5 className='subtitle'>
+                            Общая сумма - {cartItems.reduce((acc, item) => acc + item.price, 0).toFixed(2)} ₽
+                        </h5>
+                        <Button type='button' className="btn-dark" disabled={cartItems.length === 0} onClick={checkoutForBuy}>
+                            Купить
+                        </Button>
+
+                    </div>
+                </Card>
             </Col>
         </Row>
     )

@@ -3,9 +3,10 @@ const router = express.Router()
 import {
     addPaidOrders,
     getOrderId,
-    /* updateOrderToPaid,
+    afterOrderPay,
+    getPaidUsrOrders,
+    /*
     updateOrderToDelivered,
-    getMyOrders,
     getOrders,*/
 } from '../controllers/pController.js'
 import asyncHandler from "express-async-handler";
@@ -34,6 +35,9 @@ const security = asyncHandler(async (req,res,next) =>{
 
 })
 router.route('/').post(security, addPaidOrders)
+router.route('/get_orders').get(security,getPaidUsrOrders)
 router.route('/:id').get(security,getOrderId)
+router.route('/:id/paid').put(security,afterOrderPay)
+
 
 export default router

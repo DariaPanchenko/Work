@@ -66,6 +66,8 @@ export const uParamReducer =(state= { userProf:{}},action)=>{
             return {broadcast:false, userProf: action.payload}
         case actionTypes.USER_PARAM_FAIL:
             return {broadcast:false, error: action.payload}
+        case actionTypes.USER_PARAM_RESET:
+            return {userProf:{}}
         default:
             return state
     }

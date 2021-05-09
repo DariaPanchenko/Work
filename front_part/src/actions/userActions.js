@@ -26,6 +26,8 @@ export const logout =() =>(dispatch)=>{
     localStorage.removeItem('uInf')
     localStorage.removeItem('cartItems')
     dispatch({type:actionTypes.USER_LOGOUT})
+    dispatch({type:actionTypes.USER_PARAM_RESET})
+    dispatch({type:actionTypes.ORDERS_SEE_PAID_RESET})
     document.location.href = '/login'
 }
 
@@ -60,11 +62,7 @@ export const restoreEmail = (email) => async (dispatch) => {
             },
         }
 
-        const { data } = await axios.post(
-            '/api/users/restore',
-            { email },
-            config
-        )
+        const { data } = await axios.post('/api/users/restore', { email }, config)
 
     } catch (error) {
         dispatch({

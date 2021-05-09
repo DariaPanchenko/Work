@@ -18,9 +18,17 @@
 .window__background{
     background: #343a40;
 }
-
+.main__background{
+    background-image: url("../components/mainfon.png");
+}
 .scroll__pg{
     width: 32em;
     height: 35em;
+    overflow: scroll;
+}
+
+.scroll__pgs{
+    width: 50em;
+    height: 65em;
     overflow: scroll;
 }

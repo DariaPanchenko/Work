@@ -2,8 +2,10 @@ import {useEffect, useState} from 'react'
 import {Link} from 'react-router-dom'
 import {useDispatch, useSelector} from 'react-redux'
 import {paramProfile, updProfile} from '../actions/userActions'
-import {Form, Button,Row,Col} from 'react-bootstrap'
+import {userPaidOrderGet} from '../actions/paidActions'
+import {Form, Button, Row, Col, Table, Card, ListGroup} from 'react-bootstrap'
 import actionTypes from '../reducers/actionTypes'
+import {LinkContainer} from 'react-router-bootstrap'
 import Iform from '../components/Iform'
 
 const Prof_page = ({location, history}) =>{
@@ -21,6 +23,10 @@ const Prof_page = ({location, history}) =>{
     const {success} = userUpdProf
     const userLog = useSelector(state => state.userLog)
     const {uInf} = userLog
+
+    const getPaidUsrOrder = useSelector(state => state.getPaidUsrOrder)
+    const {broadcast: broadcastGetOrds, error: errorGetOrds, ords } = getPaidUsrOrder
+
     useEffect(()=>{
         if(!uInf){
             history.push('/login')
@@ -28,6 +34,7 @@ const Prof_page = ({location, history}) =>{
             if(!userProf.name || success){
                 dispatch({type: actionTypes.USER_UPDPROF_RESET})
                 dispatch(paramProfile('profile'))
+                dispatch(userPaidOrderGet())
             }else{
                 setName(userProf.name)
                 setEmail(userProf.email)
@@ -44,10 +51,9 @@ const Prof_page = ({location, history}) =>{
             dispatch(updProfile({id:userProf._id, name, email, password}))
         }
     }
-
-    return(
-        <Iform>
-            <h2>Профиль </h2>
+    return( <Row>
+            <Col md={4}>
+            <h3 className="subtitle"> Изменить профиль </h3>
             {error && <h3>{error}</h3>}
             {message && <h3>{message}</h3>}
             {success && <h3>Вы изменили данные</h3>}
@@ -73,12 +79,58 @@ const Prof_page = ({location, history}) =>{
                 </Form.Group>
                 <Button type='submit' variant='primary'>Изменить</Button>
             </Form>
-            <Row>
-                <Col>
-                   Покупки
-                </Col>
+            </Col>
+            <Col md={8}>
+                <Card>
+                    <img className="card-img" src={'../../pic/fon.png'} alt="fon"/>
+                    <div className="card-img-overlay">
+                        <ListGroup variant="flush">
+                            <h3>Товары</h3>
+                            <div className="scroll__pgs">
+                                <Row>
+                                    <Col md={5}>
+                                        <p>Заказ</p>
+                                    </Col>
+                                    <Col>
+                                        <p>Цена</p>
+                                    </Col>
+                                    <Col>
+                                        <p>Оплачено</p>
+                                    </Col>
+                                    <Col></Col>
+                                </Row>
+                            {broadcastGetOrds?(<h3>Загрузка...</h3>):errorGetOrds?(<h3>{errorGetOrds}</h3>):(
+                                ords.map((ord) => (
+                                <div key={ord._id}>
+                                    <Row>
+                                        <Col md={5}>
+                                            {ord._id}
+                                        </Col>
+                                        <Col>
+                                            {ord.allPrice}
+                                        </Col>
+                                        <Col>
+                                            {ord.paidFinish?(
+                                                ord.datePaid.substring(0, 10)):(<h5>Нет</h5>
+                                                )}
+                                        </Col>
+                                        <Col>
+                                            <LinkContainer to={`/order/${ord._id}`}>
+                                                <Button className="btn-sm btn-dark">
+                                                    Посмотреть
+                                                </Button>
+                                            </LinkContainer>
+                                        </Col>
+                                    </Row>
+                                    </div>
+                                ))
+                                )}
+                            </div>
+                        </ListGroup>
+                    </div>
+                </Card>
+            </Col>
             </Row>
-        </Iform>
     )
 }
 export default Prof_page

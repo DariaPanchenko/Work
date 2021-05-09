@@ -1,5 +1,6 @@
 import actionTypes from '../reducers/actionTypes.js'
 import axios from 'axios'
+import {getPaidUsrOrdersReducer} from "../reducers/paidRedusers";
 
 export const orderMade = (ord) => async (dispatch, getState) => {
     try {
@@ -7,9 +8,7 @@ export const orderMade = (ord) => async (dispatch, getState) => {
             type: actionTypes.MADE_ORDER_REQ,
         })
 
-        const {
-            userLog: { uInf },
-        } = getState()
+        const {userLog: { uInf },} = getState()
 
         const config = {
             headers: {
@@ -46,16 +45,13 @@ export const getOrderId = (id) => async (dispatch, getState) => {
         dispatch({
             type: actionTypes.ORDER_ID_REQ,
         })
-        const {
-            userLog: { uInf },
-        } = getState()
+        const {userLog: { uInf },} = getState()
         const config = {
             headers: {
                 Authorization: `Bearer ${uInf.token}`,
             },
         }
-        const { data } = await axios.get(`api/paid_orders/${id}`, config)
-
+        const { data } = await axios.get(`/api/paid_orders/${id}`, config)
         dispatch({
             type: actionTypes.ORDER_ID_SUCCESS,
             payload: data,
@@ -65,9 +61,6 @@ export const getOrderId = (id) => async (dispatch, getState) => {
             error.response && error.response.data.message
                 ? error.response.data.message
                 : error.message
-       /* if (message === 'Not authorized, token failed') {
-            dispatch(logout())
-        }*/
         dispatch({
             type: actionTypes.ORDER_ID_FAIL,
             payload: message,
@@ -75,3 +68,67 @@ export const getOrderId = (id) => async (dispatch, getState) => {
     }
 }
 
+export const procPayOrder = (ordId, paymentResult) => async (dispatch, getState) => {
+    try {
+        dispatch({
+            type: actionTypes.ORDER_PAID_REQ,
+        })
+
+        const {userLog: { uInf },} = getState()
+
+        const config = {
+            headers: {
+                'Content-Type': 'application/json',
+                Authorization: `Bearer ${uInf.token}`,
+            },
+        }
+
+        const { data } = await axios.put(`/api/paid_orders/${ordId}/paid`, paymentResult, config)
+
+        dispatch({
+            type: actionTypes.ORDER_PAID_SUCCESS,
+            payload: data,
+        })
+    } catch (error) {
+        const message =
+            error.response && error.response.data.message
+                ? error.response.data.message
+                : error.message
+        dispatch({
+            type: actionTypes.ORDER_PAID_FAIL,
+            payload: message,
+        })
+    }
+}
+
+export const userPaidOrderGet = () => async (dispatch, getState) => {
+    try {
+        dispatch({
+            type: actionTypes.ORDERS_SEE_PAID_REQ,
+        })
+
+        const {userLog: { uInf },} = getState()
+
+        const config = {
+            headers: {
+                Authorization: `Bearer ${uInf.token}`,
+            },
+        }
+
+        const { data } = await axios.get(`/api/paid_orders/get_orders`, config)
+
+        dispatch({
+            type: actionTypes.ORDERS_SEE_PAID_SUCCESS,
+            payload: data,
+        })
+    } catch (error) {
+        const message =
+            error.response && error.response.data.message
+                ? error.response.data.message
+                : error.message
+        dispatch({
+            type: actionTypes.ORDERS_SEE_PAID_FAIL,
+            payload: message,
+        })
+    }
+}

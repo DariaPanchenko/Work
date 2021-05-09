@@ -31,6 +31,5 @@ export const saveBuyCapsule = (data) => (dispatch) => {
         type: actionTypes.CART_SAVE_BUY,
         payload: data,
     })
-
     localStorage.setItem('paymentMethod', JSON.stringify(data))
 }

@@ -30,23 +30,9 @@ const addPaidOrders=expressAsyncHandler(async (req,res)=>{
             itemsPrice,
             allPrice,
         })
-        ord.paidFinish = true
-        ord.datePaid = Date.now()
+
         /*ord.isDelivered = true
         ord.deliveredAt = Date.now()*/
-       let html = '';
-        orderItm.forEach(itm=>{
-            console.log(itm.link)
-            html+= itm.link + ' -> ' + itm.name;
-        });
-        await transporter.sendMail({
-            from: 'pancenkodara64@gmail.com',
-            to: req.user.email,
-            subject: 'Ваш файл от B•look',
-            html: html
-        }, (error, info) => {
-            console.log(error);
-        })
         const makedOrder = await ord.save()
         res.status(201).json(makedOrder)
     }
@@ -58,7 +44,6 @@ const getOrderId = asyncHandler(async (req, res) => {
         'user',
         'name email'
     )
-
     if (ord) {
         res.json(ord)
     } else {
@@ -66,4 +51,47 @@ const getOrderId = asyncHandler(async (req, res) => {
         throw new Error('Order not found')
     }
 })
-export {addPaidOrders, getOrderId}
+
+//  After order to paid
+//  PUT /api/paid_orders/:id/paid
+// @access  Private
+const afterOrderPay = asyncHandler(async (req, res) => {
+    const ord = await Ord.findById(req.params.id)
+    if (ord) {
+        ord.paidFinish = true
+        ord.datePaid = Date.now()
+        ord.paymentResult = {
+            id: req.body.id,
+            res: req.body.res,
+            update_time: req.body.update_time,
+            email_addr: req.body.payer.email_addr,
+        }
+        let html = '';
+        ord.orderItm.forEach(itm=>{
+            console.log(itm.link)
+            html+= itm.link + ' -> ' + itm.name;
+        });
+        await transporter.sendMail({
+            from: 'pancenkodara64@gmail.com',
+            to: req.user.email,
+            subject: 'Ваш файл от B•look',
+            html: html
+        }, (error, info) => {
+            console.log(error);
+        })
+        const afterPayOrder = await ord.save()
+        res.json(afterPayOrder)
+
+    } else {
+        res.status(404)
+        throw new Error('Заказ не найден')
+    }
+})
+//  get paid orders
+//  GET /api/paid_orders/get_orders
+// @access  Private
+const getPaidUsrOrders = asyncHandler(async (req, res) => {
+    const ords = await Ord.find({ user: req.user._id })
+    res.json(ords)
+})
+export {addPaidOrders, getOrderId, afterOrderPay, getPaidUsrOrders}

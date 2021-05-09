@@ -1,7 +1,6 @@
 import {Link} from 'react-router-dom'
 import { useEffect } from 'react'
 import { Button, Row, Col, ListGroup, Image, Card } from 'react-bootstrap'
-import Slides from '../components/Slides.js'
 import { useDispatch, useSelector } from 'react-redux'
 import {orderMade} from '../actions/paidActions.js'
 
@@ -38,24 +37,20 @@ const Pay_page = ({history}) =>{
     }
     return(
         <>
-            <Slides step1 step2 />
             <Row>
-                <Col md={8}>
-                    <ListGroup variant='flush'>
-
-                        <ListGroup.Item>
-                            <h2>Способ оплаты</h2>
-                            <strong>Метод: </strong>
-                            {cart.paymentMethod}
-                        </ListGroup.Item>
-                        <ListGroup.Item>
-                            <h2> Выбранные товары </h2>
-                            {cart.cartItems.length === 0 ? (
-                                <h4>Корзина пуста</h4>
-                            ) : (
-                                <ListGroup variant='flush'>
+                <Col md={8} className="mx-auto">
+                    <Card>
+                        <img className="card-img" src={'../../pic/fon.png'} alt="fon"/>
+                        <div className="card-img-overlay">
+                        <ListGroup variant='flush'>
+                            <div>
+                             <h2 className="subtitle"> Выбранные товары </h2>
+                                {cart.cartItems.length === 0 ? (
+                                    <h4>Корзина пуста</h4>
+                                     ) : (
+                                    <ListGroup variant='flush'>
                                     {cart.cartItems.map((itm, index) => (
-                                        <ListGroup.Item key={index}>
+                                        <div key={index}>
                                             <Row>
                                                 <Col md={1}>
                                                     <Image
@@ -74,39 +69,31 @@ const Pay_page = ({history}) =>{
                                                     {itm.price} ₽
                                                 </Col>
                                             </Row>
-                                        </ListGroup.Item>
+                                        </div>
                                     ))}
                                 </ListGroup>
                             )}
-                        </ListGroup.Item>
-                    </ListGroup>
-                </Col>
-                <Col md={4}>
-                <Card>
-                    <ListGroup variant='flush'>
-                        <ListGroup.Item>
-                            <h2>Общая сумма</h2>
-                        </ListGroup.Item>
-                        <ListGroup.Item>
+                        </div>
+                        <div>
                             <Row>
-                                <Col>Cумма</Col>
-                                <Col>{cart.itemsPrice} ₽</Col>
+                                <Col><h4 className="subtitle">Общая сумма</h4></Col>
+                                <Col><h4 className="subtitle">{cart.itemsPrice} ₽</h4></Col>
                             </Row>
-                        </ListGroup.Item>
-                        <ListGroup.Item>
+                        </div>
+                        <div>
                             {error && <h3>{error}</h3>}
                             <Button
                                 type='button'
-                                className='btn-block'
+                                className="btn-dark"
                                 disabled={cart.cartItems === 0}
-                                onClick={placeOrderHandler}
-                            >
-                                Оплатить
+                                onClick={placeOrderHandler}>
+                                Оформить
                             </Button>
-                        </ListGroup.Item>
-                    </ListGroup>
-                </Card>
-            </Col>
+                        </div>
+                        </ListGroup>
+                        </div>
+                    </Card>
+                </Col>
             </Row>
         </>
     )

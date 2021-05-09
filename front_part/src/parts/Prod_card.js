@@ -16,16 +16,16 @@ const Prod_card = () =>{
     },[dispatch])
     return(
         <>
-            <div className='subtitle'>
-               <h2>Доступные подборки</h2>
-            </div>
-            {Capsules?<Row>
-                {Capsules.map(capsule =>(
-                    <Col  key={capsule._id}sm={3} md={6} lg={3} xl={4}>
-                        <Capsule1 Capsule={capsule}/>
-                    </Col>
-                ))}
-            </Row>:<h2>{error}</h2>}
+        <div className='subtitle'>
+            <h2>Доступные подборки</h2>
+        </div>
+        {Capsules?<Row>
+        {Capsules.map(capsule =>(
+            <Col  key={capsule._id}sm={3} md={6} lg={3} xl={4}>
+                <Capsule1 Capsule={capsule}/>
+            </Col>
+        ))}
+        </Row>:<h2>{error}</h2>}
         </>
     )
 }
