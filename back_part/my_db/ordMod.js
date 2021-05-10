@@ -23,7 +23,11 @@ const ordForm = mongoose.Schema({
             type: mongoose.Schema.Types.ObjectId,
             required: true,
             ref:'Capsule'
-        }
+        },
+        link: {
+            type: String,
+            required: true,
+        },
     }],
     payment:{
         type: String,

@@ -18,8 +18,8 @@ const getCapsuleId=expressAsyncHandler(async (req,res)=>{
     }
 })
 
-// @desc    Create new review
-// @route   POST /api/capsules/:id/comms
+//    Create new review
+//    POST /api/capsules/:id/comms
 // @access  Private
 const createCapsuleComm = asyncHandler(async (req, res) => {
     const { comment } = req.body

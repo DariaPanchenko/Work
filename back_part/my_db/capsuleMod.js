@@ -34,11 +34,6 @@ const capsuleForm = mongoose.Schema({
         required: true
     },
     comms: [comm],
-    commN:{
-        type: Number,
-        required: true,
-        default: 0
-    },
     author:{
         type: String,
         required: true,

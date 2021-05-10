@@ -35,8 +35,8 @@ const authorizationUser=expressAsyncHandler(async (req,res)=>{
         res.status(401).json({message:'Неверный email или пароль'})
     }
 })
-// @desc    Restore password
-// @route   POST /api/restore
+//     Restore password
+//     POST /api/restore
 // @access  Public
 const restoreUser = asyncHandler(async (req, res) => {
     const { email } = req.body
