@@ -28,6 +28,7 @@ export const logout =() =>(dispatch)=>{
     dispatch({type:actionTypes.USER_LOGOUT})
     dispatch({type:actionTypes.USER_PARAM_RESET})
     dispatch({type:actionTypes.ORDERS_SEE_PAID_RESET})
+    dispatch({type:actionTypes.USER_ALL_FORADM_RESET})
     document.location.href = '/login'
 }
 
@@ -36,7 +37,12 @@ export const register = (name, email,password) =>async (dispatch)=>{
         dispatch({
             type: actionTypes.USER_REG_REQ,
         })
-        const{data} = await axios.post('/api/users', {name,email,password})
+        const config = {
+            headers: {
+                'Content-Type': 'application/json',
+            },
+        }
+        const{data} = await axios.post('/api/users', {name,email,password},config)
         dispatch({
             type:actionTypes.USER_REG_SUCCESS,
             payload: data
@@ -72,50 +78,37 @@ export const restoreEmail = (email) => async (dispatch) => {
     }
 }
 
-export const forgotPassword= (email) =>async (dispatch)=>{
-    try{
+export const submitEmail = (user) => async (dispatch, getState) => {
+    try {
         dispatch({
-            type: actionTypes.USER_FORGOT_REQ,
+            type: actionTypes.USER_SUBMIT_REQ,
         })
-        const{data} = await axios.put('/api/users/forgotpass', {email})
 
-        dispatch({
-            type:actionTypes.USER_FORGOT_SUCCESS,
-            payload: data
-        })
-        localStorage.setItem('uInfo',JSON.stringify(data))
-    }catch (error) {
-        dispatch({
-            type: actionTypes.USER_FORGOT_FAIL,
-            payload: error.response && error.response.data.message?error.response.data.message:error.message
-        })
-    }
-}
-export const resetPassword= (id,password) =>async (dispatch,getState)=>{
-    try{
-        dispatch({
-            type: actionTypes.USER_RESET_REQ,
-        })
-        const {userLog: {uInf}} = getState()
-        const config ={
+        const {userLog: { uInf },} = getState()
+        const config = {
             headers: {
-                Authorization: `Bearer ${uInf.token}`
+                'Content-Type': 'application/json',
+                Authorization: `Bearer ${uInf.token}`,
             },
         }
-        const{data} = await axios.put(`/api/users/resetpass/${id}`,  {password})
+        const { data } = await axios.put(`/api/users/profile`, user, config)
         dispatch({
-            type:actionTypes.USER_RESET_SUCCESS,
-            payload: data
+            type: actionTypes.USER_SUBMIT_SUCCESS,
+            payload: data,
         })
         dispatch({
-            type:actionTypes.USER_LOG_SUCCESS,
-            payload: data
+            type: actionTypes.USER_LOG_SUCCESS,
+            payload: data,
         })
-        localStorage.setItem('uInf',JSON.stringify(data))
-    }catch (error) {
+        localStorage.setItem('uInf', JSON.stringify(data))
+    } catch (error) {
+        const message = error.response && error.response.data.message ? error.response.data.message : error.message
+        if (message === 'Ошибка токена') {
+            dispatch(logout())
+        }
         dispatch({
-            type: actionTypes.USER_RESET_FAIL,
-            payload: error.response && error.response.data.message?error.response.data.message:error.message
+            type: actionTypes.USER_SUBMIT_FAIL,
+            payload: message,
         })
     }
 }
@@ -168,6 +161,80 @@ export const updProfile = (userProf) =>async (dispatch, getState)=>{
     }catch (error) {
         dispatch({
             type: actionTypes.USER_UPDPROF_FAIL,
+            payload: error.response && error.response.data.message?error.response.data.message:error.message
+        })
+    }
+}
+
+export const AllUsersForAdm = () =>async (dispatch, getState)=>{
+    try{
+        dispatch({
+            type: actionTypes.USER_ALL_FORADM_REQ,
+        })
+        const {userLog: {uInf}} = getState()
+        const config ={
+            headers: {
+                Authorization: `Bearer ${uInf.token}`
+            },
+        }
+        const{data} = await axios.get(`/api/users`, config)
+        dispatch({
+            type:actionTypes.USER_ALL_FORADM_SUCCESS,
+            payload: data
+        })
+    } catch (error) {
+        dispatch({
+            type: actionTypes.USER_ALL_FORADM_FAIL,
+            payload: error.response && error.response.data.message?error.response.data.message:error.message
+        })
+    }
+}
+
+export const DelUserForAdm = (id) =>async (dispatch, getState)=>{
+    try{
+        dispatch({
+            type: actionTypes.USER_DEL_FORADM_REQ,
+        })
+        const {userLog: {uInf}} = getState()
+        const config ={
+            headers: {
+                Authorization: `Bearer ${uInf.token}`
+            },
+        }
+        await axios.delete(`/api/users/${id}`, config)
+        dispatch({
+            type:actionTypes.USER_DEL_FORADM_SUCCESS
+        })
+    } catch (error) {
+        dispatch({
+            type: actionTypes.USER_DEL_FORADM_FAIL,
+            payload: error.response && error.response.data.message?error.response.data.message:error.message
+        })
+    }
+}
+export const ChangeUserForAdm = (user) =>async (dispatch, getState)=>{
+    try{
+        dispatch({
+            type: actionTypes.USER_CHANGE_FORADM_REQ,
+        })
+        const {userLog: {uInf}} = getState()
+        const config ={
+            headers: {
+                'Content-Type':'application/json',
+                Authorization: `Bearer ${uInf.token}`
+            },
+        }
+        const {data} = await axios.put(`/api/users/${user._id}`, user, config)
+        dispatch({
+            type:actionTypes.USER_CHANGE_FORADM_SUCCESS
+        })
+        dispatch({
+            type:actionTypes.USER_PARAM_SUCCESS,
+            payload:data
+        })
+    } catch (error) {
+        dispatch({
+            type: actionTypes.USER_CHANGE_FORADM_FAIL,
             payload: error.response && error.response.data.message?error.response.data.message:error.message
         })
     }

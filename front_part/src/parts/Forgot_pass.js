@@ -1,8 +1,8 @@
-import Iform from '../components/Iform'
-import {Button, Col, Form, Row} from 'react-bootstrap'
-import {useEffect, useState} from 'react'
+import {Button, Card, Col, Form, Row} from 'react-bootstrap'
+import {useState} from 'react'
 import {useDispatch, useSelector} from 'react-redux'
 import {restoreEmail} from '../actions/userActions'
+import './Prod_card'
 
 const Forgot_pass = () => {
     const [email,setEmail] = useState('')
@@ -17,23 +17,35 @@ const Forgot_pass = () => {
         setMessage('Проверьте почту с новым паролем');
     }
     return(
-        <Iform>
-            <h2>Введите почту, чтобы получить письмо</h2>
+        <>
             {error && <h3>{error}</h3>}
             {message && <h3>{message}</h3>}
-            <Form onSubmit={submitHandler}>
-                <Form.Group controlId='email'>
-                    <Form.Label>Эл.почта</Form.Label>
-                    <Form.Control type='email' placeholder=''value={email} onChange={(e)=>setEmail(e.target.value)}></Form.Control>
-                </Form.Group>
-                <Button type='submit' variant='primary'>Отправить</Button>
-            </Form>
-            <Row className='py-3'>
-                <Col>
-                    Проверьте вашу почту.{' '}
+            <Row>
+                <Col md={6} className="mx-auto">
+                    <Card>
+                        <img className="card-img" src={'/pic/fon.png'} alt="fon"/>
+                        <div className="card-img-overlay">
+                            <Form onSubmit={submitHandler}>
+                                <div>
+                                    <h2 className="userAll__title">Введите почту, чтобы получить письмо</h2>
+                                </div>
+                                <div>
+                                    <h6>Эл.почта</h6>
+                                    <input className="form-control" type='email' placeholder=''value={email} onChange={(e)=>setEmail(e.target.value)}></input>
+                                </div>
+                                <Button type='submit' variant='primary'>Отправить</Button>
+                            </Form>
+                            <Row className='py-3'>
+                                <Col>
+                                    <div className="reg__style">Проверьте вашу почту.{' '}</div>
+                                </Col>
+                            </Row>
+                        </div>
+                    </Card>
                 </Col>
             </Row>
-        </Iform>
+        </>
+
     )
 }
 export default Forgot_pass

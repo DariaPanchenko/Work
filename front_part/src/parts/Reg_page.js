@@ -2,8 +2,8 @@ import {useEffect, useState} from 'react'
 import {Link} from 'react-router-dom'
 import {useDispatch, useSelector} from 'react-redux'
 import {register} from '../actions/userActions'
-import {Form, Button,Row,Col} from 'react-bootstrap'
-import Iform from '../components/Iform'
+import {Form, Button, Row, Col, Card} from 'react-bootstrap'
+import './Prod_card'
 
 const Reg_page = ({location, history}) =>{
     const [name,setName] = useState('')
@@ -19,13 +19,18 @@ const Reg_page = ({location, history}) =>{
     const redirect = location.search?location.search.split('=')[1] : '/'
     useEffect(()=>{
         if(uInf){
-            history.push(redirect)
+            if(uInf.passcode === '-1'){
+                history.push(redirect)
+            }
+            else {
+                history.push(redirect)
+                history.push('/submit')
+            }
         }
     },[history,uInf,redirect])
 
     const submitHandler = (e) =>{
         e.preventDefault()
-        //dispatch regist
         if(password!==repeatPassword){
             setMessage('Пароли не совпадают')
         } else{
@@ -33,38 +38,51 @@ const Reg_page = ({location, history}) =>{
         }
     }
     return(
-        <Iform>
-            <h2>Регистрация</h2>
+        <>
             {message && <h3>{message}</h3>}
             {error && <h3>{error}</h3>}
-            <Form onSubmit={submitHandler}>
-                <Form.Group controlId='name'>
-                    <Form.Label>Имя</Form.Label>
-                    <Form.Control type='name' required placeholder='' value={name} onChange={(e)=>setName(e.target.value)}></Form.Control>
-                </Form.Group>
-
-                <Form.Group controlId='email'>
-                    <Form.Label>Эл.почта</Form.Label>
-                    <Form.Control type='email' required placeholder='' value={email} onChange={(e)=>setEmail(e.target.value)}></Form.Control>
-                </Form.Group>
-
-                <Form.Group controlId='password'>
-                    <Form.Label>Пароль</Form.Label>
-                    <Form.Control type='password' required placeholder='' value={password} onChange={(e)=>setPassword(e.target.value)}></Form.Control>
-                </Form.Group>
-
-                <Form.Group controlId='repeatPassword'>
-                    <Form.Label>Подтвердите пароль</Form.Label>
-                    <Form.Control type='password' required placeholder='' value={repeatPassword} onChange={(e)=>setRepeatPassword(e.target.value)}></Form.Control>
-                </Form.Group>
-                <Button type='submit' variant='primary'>Зарегистрироваться</Button>
-            </Form>
+            {broadcast && <h3>Загрузка...</h3>}
             <Row>
-                <Col>
-                    Уже есть аккаунт?{' '}<Link to={redirect?`/login?redirect=${redirect}`:'/login' }>Войти</Link>
+                <Col md={6} className="mx-auto">
+                    <Card>
+                        <img className="card-img" src={'/pic/fon.png'} alt="fon"/>
+                        <div className="card-img-overlay">
+                            <Form onSubmit={submitHandler}>
+                                <div>
+                                    <h2 className="userAll__title">Регистрация</h2>
+                                </div>
+                                <div>
+                                    <h6>Имя</h6>
+                                    <input className="form-control" type='name' required placeholder='' value={name} onChange={(e)=>setName(e.target.value)}></input>
+                                </div>
+
+                                <div>
+                                    <h6>Эл.почта</h6>
+                                    <input className="form-control" type='email' required placeholder='' value={email} onChange={(e)=>setEmail(e.target.value)}></input>
+                                </div>
+
+                                <div>
+                                    <h6>Пароль</h6>
+                                    <input className="form-control" type='password' required placeholder='' value={password} onChange={(e)=>setPassword(e.target.value)}></input>
+                                </div>
+
+                                <div>
+                                    <h6>Подтвердите пароль</h6>
+                                    <input className="form-control" type='password' required placeholder='' value={repeatPassword} onChange={(e)=>setRepeatPassword(e.target.value)}></input>
+                                </div>
+                                <Button type='submit' variant='primary'>Зарегистрироваться</Button>
+                            </Form>
+                            <Row>
+                                <Col>
+                                    <div className="reg__style">Уже есть аккаунт?{' '}<Link className="reg__style" to={redirect?`/login?redirect=${redirect}`:'/login' }>Войти</Link></div>
+                                </Col>
+                            </Row>
+                        </div>
+                    </Card>
                 </Col>
             </Row>
-        </Iform>
+        </>
     )
+
 }
 export default Reg_page

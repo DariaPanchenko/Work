@@ -1,6 +1,5 @@
 import actionTypes from '../reducers/actionTypes.js'
 import axios from 'axios'
-import {getPaidUsrOrdersReducer} from "../reducers/paidRedusers";
 
 export const orderMade = (ord) => async (dispatch, getState) => {
     try {
@@ -128,6 +127,39 @@ export const userPaidOrderGet = () => async (dispatch, getState) => {
                 : error.message
         dispatch({
             type: actionTypes.ORDERS_SEE_PAID_FAIL,
+            payload: message,
+        })
+    }
+}
+
+
+export const AllOrderGet = () => async (dispatch, getState) => {
+    try {
+        dispatch({
+            type: actionTypes.ORDERS_ALL_REQ,
+        })
+
+        const {userLog: { uInf },} = getState()
+
+        const config = {
+            headers: {
+                Authorization: `Bearer ${uInf.token}`,
+            },
+        }
+
+        const { data } = await axios.get(`/api/paid_orders`, config)
+
+        dispatch({
+            type: actionTypes.ORDERS_ALL_SUCCESS,
+            payload: data,
+        })
+    } catch (error) {
+        const message =
+            error.response && error.response.data.message
+                ? error.response.data.message
+                : error.message
+        dispatch({
+            type: actionTypes.ORDERS_ALL_FAIL,
             payload: message,
         })
     }

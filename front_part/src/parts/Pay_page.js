@@ -44,49 +44,30 @@ const Pay_page = ({history}) =>{
                         <div className="card-img-overlay">
                         <ListGroup variant='flush'>
                             <div>
-                             <h2 className="subtitle"> Выбранные товары </h2>
+                             <h2 className="title__Cart"> Выбранные товары </h2>
                                 {cart.cartItems.length === 0 ? (
                                     <h4>Корзина пуста</h4>
                                      ) : (
                                     <ListGroup variant='flush'>
-                                    {cart.cartItems.map((itm, index) => (
-                                        <div key={index}>
-                                            <Row>
-                                                <Col md={1}>
-                                                    <Image
-                                                        src={itm.picture}
-                                                        alt={itm.name}
-                                                        fluid
-                                                        rounded
-                                                    />
-                                                </Col>
-                                                <Col>
-                                                    <Link to={`/capsule/${itm.capsule}`}>
-                                                        {itm.name}
-                                                    </Link>
-                                                </Col>
-                                                <Col md={4}>
-                                                    {itm.price} ₽
-                                                </Col>
-                                            </Row>
-                                        </div>
+                                        <div className="scroll__pgCart">
+                                         {cart.cartItems.map((itm, index) => (
+                                             <div key={index}>
+                                                     <div>
+                                                         <Link to={`/capsule/${itm.capsule}`}>{itm.name}</Link>
+                                                     </div>
+                                                    <div>
+                                                        <h5>{itm.price} ₽</h5>
+                                                    </div>
+                                            </div>
                                     ))}
+                                        </div>
                                 </ListGroup>
                             )}
                         </div>
-                        <div>
-                            <Row>
-                                <Col><h4 className="subtitle">Общая сумма</h4></Col>
-                                <Col><h4 className="subtitle">{cart.itemsPrice} ₽</h4></Col>
-                            </Row>
-                        </div>
+                            <h4 className='subtitle__Cart'>Общая сумма - {cart.itemsPrice} ₽</h4>
                         <div>
                             {error && <h3>{error}</h3>}
-                            <Button
-                                type='button'
-                                className="btn-dark"
-                                disabled={cart.cartItems === 0}
-                                onClick={placeOrderHandler}>
+                            <Button type='button' className="btn-dark" disabled={cart.cartItems === 0} onClick={placeOrderHandler}>
                                 Оформить
                             </Button>
                         </div>

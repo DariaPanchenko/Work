@@ -5,9 +5,7 @@ import {
     getOrderId,
     afterOrderPay,
     getPaidUsrOrders,
-    /*
-    updateOrderToDelivered,
-    getOrders,*/
+    getOrders
 } from '../controllers/pController.js'
 import asyncHandler from "express-async-handler";
 import jwt from "jsonwebtoken";
@@ -34,7 +32,16 @@ const security = asyncHandler(async (req,res,next) =>{
     }
 
 })
-router.route('/').post(security, addPaidOrders)
+const isAdmin = (req,res,next) =>{
+    if(req.user && req.user.admin){
+        next()
+    } else{
+        res.status(401)
+        console.log('Вы не являетесь администратором')
+        throw new Error('Вы не являетесь администратором')
+    }
+}
+router.route('/').post(security, addPaidOrders).get(security,isAdmin,getOrders)
 router.route('/get_orders').get(security,getPaidUsrOrders)
 router.route('/:id').get(security,getOrderId)
 router.route('/:id/paid').put(security,afterOrderPay)

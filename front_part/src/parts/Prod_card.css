@@ -5,15 +5,24 @@
 .subtitle__header{
     font-family: Roboto_Thin;
 }
+.title__Cart{
+    font-family: Roboto_Thin;
+    margin-top: 30px;
+}
+.subtitle__Cart{
+    font-family: Roboto_Thin;
+    margin-top: 30px;
+    background-color: #343a40;
+    color: white;
+}
+
+
 @font-face{
     font-family:Roboto_Thin;
     src: url("../fonts/roboto-thin_[allfont.ru].ttf");
-
 }
-
 .clr__background{
     background: #888888;
-
 }
 .window__background{
     background: #343a40;
@@ -22,13 +31,396 @@
     background-image: url("../components/mainfon.png");
 }
 .scroll__pg{
-    width: 32em;
-    height: 35em;
+    width: 25em;
+    height: 36em;
     overflow: scroll;
 }
-
 .scroll__pgs{
     width: 50em;
     height: 65em;
     overflow: scroll;
+}
+.scroll__pgCart{
+    width: 48em;
+    height: 40em;
+    overflow: scroll;
+}
+.scroll__pgU{
+    width: 50em;
+    height: 61em;
+    overflow: scroll;
+}
+.scroll__pgUserChange{
+    width: 50em;
+    height: 65em;
+    overflow: scroll;
+}
+.edit__UserChange{
+    margin-bottom: 3px;
+}
+.hr{
+    border: none;
+    background-color: #1b1e21;
+    color: #1b1e21;
+    height: 2px;
+}
+.userAll__del{
+    margin-top:10px;
+}
+.userCheckbox{
+    margin-left: 20px;
+    margin-bottom:30px;
+}
+
+.comment__place{
+    width: 23em;
+}
+
+/*Prod_All and UserAll page and Prod_single_page*/
+@media (max-width: 1200px)and (min-width: 992px) {
+    .comment__place{
+        width: 20em;
+    }
+    .scroll__pgU{
+        width: 42em;
+        height: 50em;
+        overflow: scroll;
+    }
+}
+
+@media (max-width: 991px) and (min-width: 769px){
+    .scroll__pg{
+        width: 15em;
+        height: 36em;
+        overflow: scroll;
+    }
+    .comment__place{
+        width: 15em;
+    }
+
+    .scroll__pgU{
+        width: 30em;
+        height: 35em;
+        overflow: scroll;
+    }
+}
+
+@media (max-width: 768px) and (min-width: 480px){
+    .scroll__pg{
+        width: 15em;
+        height: 36em;
+        overflow: scroll;
+    }
+    .comment__place{
+        width: 14em;
+    }
+    .scroll__pgU{
+        width: 30em;
+        height: 33em;
+        overflow: scroll;
+    }
+}
+
+@media (max-width: 479px) and (min-width: 426px){
+    .userAll__title{
+        font-size: 20px;
+    }
+    .userAll__descr{
+        font-size: 12px;
+    }
+    .scroll__pgU{
+        width: 26em;
+        height: 29em;
+        overflow: scroll;
+    }
+}
+
+@media (max-width: 425px) and (min-width: 376px){
+    .comment__place{
+        width: 25em;
+    }
+    .userAll__title{
+        font-size: 18px;
+    }
+    .userAll__descr{
+        font-size: 12px;
+    }
+    .scroll__pgU{
+        width: 23em;
+        height: 25em;
+        overflow: scroll;
+    }
+}
+
+@media (max-width: 375px) and (min-width: 320px){
+    .scroll__pg{
+        width: 20em;
+        height: 36em;
+        overflow: scroll;
+    }
+    .comment__place{
+        width: 21em;
+    }
+    .userAll__title{
+        font-size: 14px;
+    }
+    .userAll__descr{
+        font-size: 12px;
+    }
+    .scroll__pgU{
+        width: 19em;
+        height: 19em;
+        overflow: scroll;
+    }
+}
+
+/*UserChange page*/
+@media (max-width: 1200px)and (min-width: 992px) {
+    .scroll__pgUserChange{
+        width: 40em;
+        height: 50em;
+        overflow: scroll;
+    }
+}
+
+@media (max-width: 991px) and (min-width: 769px){
+    .edit__UserChange{
+        margin-bottom: 3px;
+    }
+    .scroll__pgUserChange{
+        width: 30em;
+        height: 35em;
+        margin-bottom: 10px;
+        overflow: scroll;
+    }
+}
+
+@media (max-width: 768px) and (min-width: 480px){
+    .scroll__pgUserChange{
+        width: 30em;
+        height: 36em;
+        overflow: scroll;
+    }
+}
+
+@media (max-width: 479px) and (min-width: 426px){
+    .userChange__title{
+        font-size: 18px;
+    }
+    .userChange__descr{
+        font-size: 12px;
+    }
+    .scroll__pgUserChange{
+        width: 26em;
+        height: 31em;
+        overflow: scroll;
+    }
+}
+
+@media (max-width: 425px) and (min-width: 376px){
+    .userChange__title{
+        font-size: 16px;
+    }
+    .userChange__descr{
+        font-size: 12px;
+    }
+    .scroll__pgUserChange{
+        width: 23em;
+        height: 26em;
+        overflow: scroll;
+    }
+}
+
+@media (max-width: 375px) and (min-width: 320px){
+    .userChange__title{
+        font-size: 14px;
+    }
+    .userChange__descr{
+        font-size: 12px;
+    }
+    .scroll__pgUserChange{
+        width: 19em;
+        height: 21em;
+        overflow: scroll;
+    }
+}
+
+/*Cart_card page and Pay page*/
+@media (max-width: 1200px)and (min-width: 992px) {
+    .scroll__pgCart{
+        width: 40em;
+        height: 33em;
+        overflow: scroll;
+    }
+}
+
+@media (max-width: 991px) and (min-width: 769px){
+    .scroll__pgCart{
+        width: 22em;
+        height: 28em;
+        overflow: scroll;
+    }
+}
+
+@media (max-width: 768px) and (min-width: 480px){
+    .scroll__pgCart{
+        width: 29em;
+        height: 26em;
+        overflow: scroll;
+    }
+}
+
+@media (max-width: 479px) and (min-width: 426px){
+    .scroll__pgCart{
+        width: 26em;
+        height: 23em;
+        overflow: scroll;
+    }
+}
+
+@media (max-width: 425px) and (min-width: 376px){
+    .scroll__pgCart{
+        width: 23em;
+        height: 19em;
+        overflow: scroll;
+    }
+}
+
+@media (max-width: 375px) and (min-width: 320px) {
+    .title__Cart{
+        font-size: 12px;
+    }
+    .subtitle__Cart {
+        font-size: 12px;
+    }
+    .scroll__pgCart {
+        width: 19em;
+        height: 12em;
+        overflow: scroll;
+    }
+}
+
+/* Paid_orders_page and ProdCreate_page, Log and Reg and Forgot pages*/
+@media (max-width: 1200px)and (min-width: 992px) {
+    .reg__style{
+        background-color: black;
+        color: white;
+    }
+    .scroll__pgCartFinnish{
+        width: 40em;
+        height: 15em;
+        overflow: scroll;
+    }
+}
+
+@media (max-width: 991px) and (min-width: 769px){
+    .reg__style{
+        background-color: black;
+        color: white;
+    }
+    .scroll__pgCartFinnish{
+        width: 22em;
+        height: 4em;
+        overflow: scroll;
+    }
+}
+
+@media (max-width: 768px) and (min-width: 480px){
+    .reg__style{
+        background-color: black;
+        color: white;
+    }
+    .prodCreate__inpt{
+        height: 25px !important;
+    }
+    .prodCreate__for__btn{
+        margin-top: 20px;
+    }
+    .descr__paid_orders{
+        background-color: #343a40;
+        color: white;
+    }
+    .scroll__pgCartFinnish{
+        width: 29em;
+        height: 4em;
+        overflow: scroll;
+    }
+}
+
+@media (max-width: 479px) and (min-width: 426px){
+    .reg__style{
+        background-color: black;
+        color: white;
+    }
+    .prodCreate__inpt{
+        height: 25px !important;
+    }
+    .prodCreate__for__btn{
+        margin-top: 20px;
+    }
+    .descr__paid_orders{
+        background-color: #343a40;
+        color: white;
+    }
+    .scroll__pgCartFinnish{
+        width: 26em;
+        height: 3em;
+        overflow: scroll;
+    }
+}
+
+@media (max-width: 425px) and (min-width: 376px){
+    .reg__style{
+        background-color: black;
+        color: white;
+    }
+    .prodCreate__inpt{
+        height: 25px !important;
+    }
+    prodCreate__descr{
+        font-size: 10px;
+    }
+    .prodCreate__for__btn{
+        margin-top: 20px;
+    }
+    .descr__paid_orders{
+        background-color: black;
+        color: white;
+    }
+    .scroll__pgCartFinnish{
+        width: 23em;
+        height: 5em;
+        overflow: scroll;
+    }
+}
+
+@media (max-width: 375px) and (min-width: 320px) {
+    .reg__style{
+        background-color: black;
+        color: white;
+    }
+    .prodCreate__inpt{
+        height: 25px !important;
+    }
+    prodCreate__descr{
+        font-size: 10px;
+    }
+    .prodCreate__for__btn{
+        margin-top: 20px;
+    }
+    .title__CartFinish{
+        font-size: 12px;
+    }
+    .subtitle__CartFinish {
+        font-size: 12px;
+    }
+    .descr__paid_orders{
+        background-color: #343a40;
+        color: white;
+    }
+    .scroll__pgCartFinnish {
+        width: 19em;
+        height: 4em;
+        overflow: scroll;
+    }
 }

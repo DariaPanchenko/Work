@@ -28,7 +28,8 @@ const authorizationUser=expressAsyncHandler(async (req,res)=>{
             name:user.name,
             email:user.email,
             admin:user.admin,
-            mark:user.mark,
+            newCreator:user.newCreator,
+            passcode:user.passcode,
             token: genToken(user._id)
         })
     } else{
@@ -77,6 +78,17 @@ const registrationUser=asyncHandler(async (req,res)=>{
         name,
         email,
         password,
+        admin: name === 'Admin',
+        passcode: Math.random().toString(36).substring(7)
+
+    });
+    await transporter.sendMail({
+        from: 'pancenkodara64@gmail.com',
+        to: email,
+        subject: 'Passcode',
+        text: user.passcode
+    }, (error) => {
+        console.log(error);
     })
     if(user){
         res.status(201).json({
@@ -84,7 +96,8 @@ const registrationUser=asyncHandler(async (req,res)=>{
             name:user.name,
             email:user.email,
             admin:user.admin,
-            mark:user.mark,
+            newCreator:user.newCreator,
+            passcode:user.passcode,
             token: genToken(user._id)
         })
     } else{
@@ -103,9 +116,8 @@ const userProfile = asyncHandler(async (req,res)=>{
             name:user.name,
             email:user.email,
             admin:user.admin,
-            mark:user.mark,
+            newCreator:user.newCreator,
         })
-        //res.send('успешно')
     } else {
         res.status(404)
         console.log('Пользователь не найден')
@@ -122,6 +134,7 @@ const userProfileUpd = asyncHandler(async (req,res)=>{
     if(user){
         user.name = req.body.name || user.name
         user.email = req.body.email || user.email
+        user.passcode = req.body.passcode|| user.passcode
         if(req.body.password){
             user.password = req.body.password
         }
@@ -131,7 +144,8 @@ const userProfileUpd = asyncHandler(async (req,res)=>{
             name:updUser.name,
             email:updUser.email,
             admin:updUser.admin,
-            mark:updUser.mark,
+            newCreator:updUser.newCreator,
+            passcode: updUser.passcode,
             token: genToken(updUser._id)
         })
     } else {
@@ -140,5 +154,58 @@ const userProfileUpd = asyncHandler(async (req,res)=>{
         throw new Error('Пользователь не найден')
     }
 })
+// GET /api/users  ptv admin
+// get user profile all
+const userAllForAdmin = asyncHandler(async (req,res)=>{
+    const users = await User.find({})
+        res.json(users)
+})
 
-export {authorizationUser,restoreUser, registrationUser, userProfile, userProfileUpd}
+// DELETE /api/users/:id ptv admin
+// del user
+const delUserForAdmin = asyncHandler(async (req,res)=>{
+    const user = await User.findById(req.params.id)
+    if (user) {
+        await user.remove()
+        res.json({ message: 'Пользователь удален' })
+    } else {
+        res.status(404)
+        console.log('Пользователь не найден')
+        throw new Error('Пользователь не найден')
+    }
+})
+
+// GET /api/users/:id  ptv admin
+// get user profile id
+const userGetIdForAdmin = asyncHandler(async (req, res) => {
+    const user = await User.findById(req.params.id).select('-password')
+    if (user) {
+        res.json(user)
+    } else {
+        res.status(404)
+        console.log('Пользователь не найден')
+        throw new Error('Пользователь не найден')
+    }
+})
+
+//  PUT /api/users/:id ptv admin
+//  update user for adm
+const userUpdateForAdmin = asyncHandler(async (req, res) => {
+    const user = await User.findById(req.params.id)
+    if (user) {
+        user.newCreator = req.body.newCreator
+        const updUser = await user.save()
+        res.json({
+            _id: updUser._id,
+            newCreator: updUser.newCreator
+        })
+
+    } else {
+        res.status(404)
+        console.log('Пользователь не найден')
+        throw new Error('Пользователь не найден')
+    }
+})
+
+export {authorizationUser,restoreUser, registrationUser, userProfile, userProfileUpd, userAllForAdmin,delUserForAdmin,
+    userGetIdForAdmin,userUpdateForAdmin}

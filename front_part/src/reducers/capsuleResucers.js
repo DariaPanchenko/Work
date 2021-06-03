@@ -24,6 +24,35 @@ export const allCapsulesReducer = (state= { Capsules:[] },action) =>{
      }
  }
 
+export const CapsuleDelReducer = (state= { },action) =>{
+    switch (action.type){
+        case actionTypes.CAPSULE_DEL_REQ:
+            return {broadcast:true}
+        case actionTypes.CAPSULE_DEL_SUCCESS:
+            return {broadcast:false, success: true}
+        case actionTypes.CAPSULE_DEL_FAIL:
+            return {broadcast:false, error: action.payload}
+        default:
+            return state
+    }
+}
+
+export const CapsuleMadeNewReducer = (state= { },action) =>{
+    switch (action.type){
+        case actionTypes.CAPSULE_MADE_NEW_REQ:
+            return {broadcast:true}
+        case actionTypes.CAPSULE_MADE_NEW_SUCCESS:
+            return {broadcast:false, success: true, capsule: action.payload}
+        case actionTypes.CAPSULE_MADE_NEW_FAIL:
+            return {broadcast:false, error: action.payload}
+        case actionTypes.CAPSULE_MADE_NEW_RESET:
+            return {}
+
+        default:
+            return state
+    }
+}
+
  export const CapsuleCommReducer = (state = {}, action) => {
      switch (action.type) {
          case actionTypes.CAPSULE_COMM_REQ:
@@ -38,3 +67,19 @@ export const allCapsulesReducer = (state= { Capsules:[] },action) =>{
              return state
      }
  }
+
+export const CapsuleSetReducer = (state= { capsule: {}},action) =>{
+    switch (action.type){
+        case actionTypes.CAPSULE_SET_REQ:
+            return {broadcast:true}
+        case actionTypes.CAPSULE_SET_SUCCESS:
+            return {broadcast:false, success: true, capsule: action.payload}
+        case actionTypes.CAPSULE_SET_FAIL:
+            return {broadcast:false, error: action.payload}
+        case actionTypes.CAPSULE_SET_RESET:
+            return {capsule: {}}
+
+        default:
+            return state
+    }
+}

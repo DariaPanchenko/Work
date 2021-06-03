@@ -30,9 +30,6 @@ const addPaidOrders=expressAsyncHandler(async (req,res)=>{
             itemsPrice,
             allPrice,
         })
-
-        /*ord.isDelivered = true
-        ord.deliveredAt = Date.now()*/
         const makedOrder = await ord.save()
         res.status(201).json(makedOrder)
     }
@@ -77,7 +74,7 @@ const afterOrderPay = asyncHandler(async (req, res) => {
         await transporter.sendMail({
             from: 'pancenkodara64@gmail.com',
             to: req.user.email,
-            subject: 'Ваш файл от B•look',
+            subject: 'Ваш файл от Beauty look',
             html: html
         }, (error, info) => {
             console.log(error);
@@ -96,4 +93,12 @@ const getPaidUsrOrders = asyncHandler(async (req, res) => {
     const ords = await Ord.find({ user: req.user._id })
     res.json(ords)
 })
-export {addPaidOrders, getOrderId, afterOrderPay, getPaidUsrOrders}
+
+//  get all orders
+//  GET /api/paid_orders
+//  @access Private
+const getOrders = asyncHandler(async (req, res) => {
+    const ords = await Ord.find({ }).populate('user','id name')
+    res.json(ords)
+})
+export {addPaidOrders, getOrderId, afterOrderPay, getPaidUsrOrders,getOrders}

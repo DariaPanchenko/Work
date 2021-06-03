@@ -21,3 +21,11 @@
         background: url("marble.jpg");
     }
 }
+/*384 заголовок*/
+@media (max-width: 384px) and (min-width: 320px){
+    .title{
+        margin: 0;
+        font-family: Horizon;
+        font-size: 70px !important;
+    }
+}

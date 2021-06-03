@@ -93,3 +93,24 @@ export const getPaidUsrOrdersReducer = (state = {ords:[]}, action) => {
             return state
     }
 }
+
+export const getAllOrdersReducer = (state = {ords:[]}, action) => {
+    switch (action.type) {
+        case actionTypes.ORDERS_ALL_REQ:
+            return {
+                broadcast: true,
+            }
+        case actionTypes.ORDERS_ALL_SUCCESS:
+            return {
+                broadcast: false,
+                ords: action.payload,
+            }
+        case actionTypes.ORDERS_ALL_FAIL:
+            return {
+                broadcast: false,
+                error: action.payload,
+            }
+        default:
+            return state
+    }
+}

@@ -18,12 +18,12 @@ const usrForm = mongoose.Schema({
     admin:{
         type: Boolean,
         required: true,
-        default:false
+        default: false
     },
-   mark:{
-        type: Number,
+    newCreator:{
+        type: Boolean,
         required: true,
-        default: 0
+        default: false
     },
     passcode:{
         data: String,

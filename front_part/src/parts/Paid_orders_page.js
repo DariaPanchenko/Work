@@ -51,7 +51,7 @@ const Paid_orders_page = ({match}) =>{
     return broadcast?(<h3>Загрузка...</h3>):error?(<h3>{error}</h3>):(
         <>
             <Row>
-                <Col md={6} className="mx-auto">
+                <Col md={8} className="mx-auto">
                     <Card>
                         <img className="card-img" src={'../../pic/fon.png'} alt="fon"/>
                         <div className="card-img-overlay">
@@ -60,11 +60,12 @@ const Paid_orders_page = ({match}) =>{
                                 <p>Почта: {ord.user.email}</p>
                             </div>
                             <div>
-                                <h4 className="subtitle">Подборки</h4>
+                                <h4 className="title__CartFinish">Подборки</h4>
                                 {ord.orderItm.length === 0 ? (
                                     <h3>Нет заказов</h3>
                                 ) : (
                                     <ListGroup variant='flush'>
+                                        <div className="scroll__pgCartFinnish">
                                         {ord.orderItm.map((itm, index) => (
                                             <div key={index}>
                                                 <Row>
@@ -79,23 +80,24 @@ const Paid_orders_page = ({match}) =>{
                                                 </Row>
                                             </div>
                                         ))}
+                                        </div>
                                     </ListGroup>
                                 )}
                             </div>
                             <div>
-                                <h4 className="subtitle">Состояние оплаты: </h4>
+                                <h4 className="subtitle__CartFinish">Состояние оплаты: </h4>
                                 {ord.paidFinish ? (<p>Дата {ord.datePaid}</p>
                                 ) : (<p>Не оплачено</p>)}
                             </div>
                             <div>
-                                <h4 className="subtitle">Сумма заказа</h4>
-                                <h4>{ord.allPrice} ₽</h4>
+                                <h4 className="subtitle__CartFinish">Сумма заказа</h4>
+                                <h4 className="subtitle__CartFinish">{ord.allPrice} ₽</h4>
                             </div>
                             {!ord.paidFinish && (
                                 <div>
                                     {broadcastProcPay && <h3>Обработка...</h3>}
-                                    {!sdkOk ? <h3>Обработка...</h3>:(
-                                        <PayPalButton amount={ord.allPrice}  size="small" onSuccess={successPayHandler} options={{currency: "RUB"}}></PayPalButton>
+                                    {!sdkOk ? <h3 className="subtitle__CartFinish">Обработка...</h3>:(
+                                        <PayPalButton amount={ord.allPrice}  onSuccess={successPayHandler} options={{currency: "RUB"}}></PayPalButton>
                                         )
                                     }
                                     <p>ИЛИ</p>
@@ -109,7 +111,7 @@ const Paid_orders_page = ({match}) =>{
                                         <input type="hidden" name="need-email" value="true"/>
                                         <input type="hidden" name="need-phone" value="false"/>
                                         <input type="hidden" name="need-address" value="false"/>
-                                        <label><input type="radio" name="paymentType" value="PC"/>ЮMoney</label>
+                                        <label className="descr__paid_orders"><input type="radio" name="paymentType" value="PC"/>ЮMoney</label>
                                         <input type="button" value="Перевести"/>
                                     </form>
                                 </div>

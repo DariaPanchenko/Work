@@ -2,7 +2,7 @@ import './Iheader.css'
 const Iheader = () => {
     return(
         <div className="img__header">
-            <p className="title">B•look</p>
+            <p className="title">Beauty look</p>
         </div>
     )
 }

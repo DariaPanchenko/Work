@@ -10,7 +10,7 @@ const Footer = () => {
                             <a className="contacts__socials" href='/'><img className="contacts__socials-vk" src={ '/pic/VK.png'} alt="vk"/></a>
                             <a className="contacts__socials" href='/'><img className="contacts__socials-fb" src={'/pic/FB.png'} alt="fb"/></a>
                         </div>
-                        B•look
+                        Beauty look
                     </Col>
                 </Row>
             </Container>

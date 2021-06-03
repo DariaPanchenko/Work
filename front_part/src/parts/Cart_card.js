@@ -32,7 +32,7 @@ const Cart_card = ({match,history}) => {
     }
     return(
         <Row>
-            <Col md={6} className="mx-auto">
+            <Col md={8} className="mx-auto">
                 <Card>
                     <img className="card-img" src={'../../pic/fon.png'} alt="fon"/>
                     <div className="card-img-overlay">
@@ -41,28 +41,27 @@ const Cart_card = ({match,history}) => {
                         </div>
                 {cartItems.length ===0?<h3>Пусто</h3>:(
                     <ListGroup variant='flush'>
+                        <div className="scroll__pgCart">
                         {cartItems.map((itm) => (
                             <div key={itm.capsule}>
-                                <Row>
-                                    <Col md={2}>
-                                        <Image src={itm.picture} alt={itm.name} fluid rounded/>
-                                    </Col>
-                                    <Col md={3}>
-                                        <Link to={`/capsule/${itm.capsule}`}>{itm.name}</Link>
-                                    </Col>
-                                    <Col md={2}>
-                                        <h5 className="subtitle__header">{itm.price} ₽</h5>
-                                    </Col>
-                                    <Col md={3}>
-                                        <Button type='button' className="btn-dark" variant='light' onClick={()=>removeItem(itm.capsule)}>
-                                            <i className='delett'>Удалить</i>
-                                        </Button>
-                                    </Col>
-                                </Row>
+                                <div className="hr">
+                                </div>
+                                <div>
+                                    <Link to={`/capsule/${itm.capsule}`}>{itm.name}</Link>
+                                </div>
+                                <div>
+                                    <h5 className="subtitle__header">{itm.price} ₽</h5>
+                                </div>
+                                <div>
+                                    <Button type='button' className="btn-sm btn-dark" variant='light' onClick={()=>removeItem(itm.capsule)}>
+                                        <i className='delett'>Удалить</i>
+                                    </Button>
+                                </div>
                             </div>
                         ))}
+                       </div>
                     </ListGroup>)}
-                        <h5 className='subtitle'>
+                        <h5 className='subtitle__Cart'>
                             Общая сумма - {cartItems.reduce((acc, item) => acc + item.price, 0).toFixed(2)} ₽
                         </h5>
                         <Button type='button' className="btn-dark" disabled={cartItems.length === 0} onClick={checkoutForBuy}>
