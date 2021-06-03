@@ -15,7 +15,6 @@ app.get('/',(req,res)=>{
 app.use('/api/capsules',cRoutes)
 app.use('/api/users',uRoutes)
 app.use('/api/paid_orders', pRoutes)
-//app.use('/api/upload', imgRoutes)
 app.get('/api/config/paypal',(req,res)=>res.send(process.env.PAYPAL))
 app.use((err,req,res,next) => {
     const statusCode = (res.statusCode === 200)?200:res.statusCode

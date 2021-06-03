@@ -50,8 +50,7 @@ const getOrderId = asyncHandler(async (req, res) => {
 })
 
 //  After order to paid
-//  PUT /api/paid_orders/:id/paid
-//  @access Private
+//  PUT /api/paid_orders/:id/paid pvt
 const afterOrderPay = asyncHandler(async (req, res) => {
     const ord = await Ord.findById(req.params.id)
     if (ord) {
@@ -87,16 +86,14 @@ const afterOrderPay = asyncHandler(async (req, res) => {
     }
 })
 //  get paid orders
-//  GET /api/paid_orders/get_orders
-//  @access Private
+//  GET /api/paid_orders/get_orders pvt
 const getPaidUsrOrders = asyncHandler(async (req, res) => {
     const ords = await Ord.find({ user: req.user._id })
     res.json(ords)
 })
 
 //  get all orders
-//  GET /api/paid_orders
-//  @access Private
+//  GET /api/paid_orders pvt
 const getOrders = asyncHandler(async (req, res) => {
     const ords = await Ord.find({ }).populate('user','id name')
     res.json(ords)

@@ -1,5 +1,4 @@
 import {useEffect, useState} from 'react'
-import {Link} from 'react-router-dom'
 import {useDispatch, useSelector} from 'react-redux'
 import {paramProfile,ChangeUserForAdm} from '../actions/userActions'
 import {Form, Button, Row, Col, ListGroup, Card} from 'react-bootstrap'
@@ -48,68 +47,67 @@ const UserChange_page = ({match, history}) =>{
     }
 
     return(
-       <> <Row>
-           <Col md={4}>
-               <div>
-                    <h2 className="userChange__title">Cтатус создателя подборок</h2>
-               </div>
-               {broadcastChange && <h3>Загрузка...</h3>}
-               {errorChange && <h3>{errorChange}</h3>}
-               {broadcast?<h3>Загрузка...</h3>:error?<h3>{error}</h3>:(
-                   <Form onSubmit={submitHandler}>
+           <> <Row>
+                   <Col md={4}>
                        <div>
-                           <h5 className="userChange__title">{userProf.name} </h5>
-                           <div className="userCheckbox">
-                               <input className="form-check-input" type='checkbox' label="Создатель подборок"  checked={newCreator} onChange={(e)=>setNewCreator(e.target.checked)}></input>
-                           </div>
+                            <h2 className="userChange__title">Cтатус создателя подборок</h2>
                        </div>
-                       <div>
-                       <Button  className="btn-dark" type='submit' variant='primary'>Обновить</Button>
-                       </div>
-                   </Form>
-               )}
-           </Col>
+                       {broadcastChange && <h3>Загрузка...</h3>}
+                       {errorChange && <h3>{errorChange}</h3>}
+                       {broadcast?<h3>Загрузка...</h3>:error?<h3>{error}</h3>:(
+                           <Form onSubmit={submitHandler}>
+                               <div>
+                                   <h5 className="userChange__title">{userProf.name} </h5>
+                                   <div className="userCheckbox">
+                                       <input className="form-check-input" type='checkbox' label="Создатель подборок"  checked={newCreator} onChange={(e)=>setNewCreator(e.target.checked)}></input>
+                                   </div>
+                               </div>
+                               <div>
+                               <Button  className="btn-dark" type='submit' variant='primary'>Обновить</Button>
+                               </div>
+                           </Form>
+                       )}
+                   </Col>
 
-           <Col md={8} className="mx-auto">
-               <Card>
-                   <img className="card-img" src={'/pic/fon.png'} alt="fon"/>
-                   <div className="card-img-overlay">
-                       <ListGroup variant="flush">
-                           <h3 className="userChange__title" >Заказы всех пользователей</h3>
-                           <div className="scroll__pgUserChange">
-                               {broadcastAllOrds?(<h3>Загрузка...</h3>):errorAllOrds?(<h3>{errorAllOrds}</h3>):(
-                                   ords.map((ord) => (
-                                       <div key={ord._id} className="edit__UserChange">
-                                           <div className="hr">
-                                           </div>
-                                               <div md={4}>
-                                                   <h5 className="userChange__descr">Пользователь: {ord.user && ord.user.name}</h5>
+                   <Col md={8} className="mx-auto">
+                       <Card>
+                           <img className="card-img" src={'/pic/fon.png'} alt="fon"/>
+                           <div className="card-img-overlay">
+                               <ListGroup variant="flush">
+                                   <h3 className="userChange__title" >Заказы всех пользователей</h3>
+                                   <div className="scroll__pgUserChange">
+                                       {broadcastAllOrds?(<h3>Загрузка...</h3>):errorAllOrds?(<h3>{errorAllOrds}</h3>):(
+                                           ords.map((ord) => (
+                                               <div key={ord._id} className="edit__UserChange">
+                                                   <div className="hr">
+                                                   </div>
+                                                       <div md={4}>
+                                                           <h5 className="userChange__descr">Пользователь: {ord.user && ord.user.name}</h5>
+                                                       </div>
+                                                       <div>
+                                                           <h5 className="userChange__descr">Цена:{ord.allPrice} ₽</h5>
+                                                       </div>
+                                                       <div>
+                                                          <h5 className="userChange__descr"> Оплачено: {ord.paidFinish?(
+                                                               ord.datePaid.substring(0, 10)):(<h5>Нет</h5>
+                                                           )}</h5>
+                                                       </div>
+                                                       <div>
+                                                           <LinkContainer to={`/order/${ord._id}`}>
+                                                               <Button className="btn-sm btn-dark">
+                                                                   Посмотреть
+                                                               </Button>
+                                                           </LinkContainer>
+                                                       </div>
                                                </div>
-                                               <div>
-                                                   <h5 className="userChange__descr">Цена:{ord.allPrice} ₽</h5>
-                                               </div>
-                                               <div>
-                                                  <h5 className="userChange__descr"> Оплачено: {ord.paidFinish?(
-                                                       ord.datePaid.substring(0, 10)):(<h5>Нет</h5>
-                                                   )}</h5>
-                                               </div>
-                                               <div>
-                                                   <LinkContainer to={`/order/${ord._id}`}>
-                                                       <Button className="btn-sm btn-dark">
-                                                           Посмотреть
-                                                       </Button>
-                                                   </LinkContainer>
-                                               </div>
-                                       </div>
-                                   ))
-                               )}
+                                           ))
+                                       )}
+                                   </div>
+                               </ListGroup>
                            </div>
-                       </ListGroup>
-                   </div>
-               </Card>
-           </Col>
-
-       </Row>
+                       </Card>
+                   </Col>
+           </Row>
 
        </>
     )

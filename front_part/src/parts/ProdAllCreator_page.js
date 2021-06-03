@@ -1,9 +1,8 @@
-import {useEffect, useState} from 'react'
-import {LinkContainer} from 'react-router-bootstrap'
+import {useEffect} from 'react'
 import {useDispatch, useSelector} from 'react-redux'
 import {allCpsles, MadeNewCapsule} from '../actions/capsuleActions'
 import actionTypes from '../reducers/actionTypes'
-import {Form, Table, Button, Row, Col, Card, ListGroup} from 'react-bootstrap'
+import {Row, Col, Card, ListGroup} from 'react-bootstrap'
 import './Prod_card'
 
 const ProdALLCreator_page = ({history}) =>{
@@ -27,11 +26,6 @@ const ProdALLCreator_page = ({history}) =>{
         }else {
             dispatch(allCpsles())
         }
-        /*if(uInf && uInf.admin){
-            dispatch(allCpsles())
-        }else {
-            history.push('/login')
-        }*/
     },[dispatch, history, uInf, successMadeNew,OkNewCapsule])
 
     const createCapsHandler=()=>{

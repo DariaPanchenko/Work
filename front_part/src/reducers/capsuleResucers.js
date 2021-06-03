@@ -78,7 +78,6 @@ export const CapsuleSetReducer = (state= { capsule: {}},action) =>{
             return {broadcast:false, error: action.payload}
         case actionTypes.CAPSULE_SET_RESET:
             return {capsule: {}}
-
         default:
             return state
     }

@@ -12,9 +12,10 @@ export const allCpsles = () => async (dispatch) =>{
             payload:data
         })
     }catch (error) {
+        const message = error.response && error.response.data.message ? error.response.data.message : error.message
         dispatch({
             type:'ALL_CAPSULES_FALSE',
-            payload: error.response && error.response.data.message?error.response.data.message:error.message
+            payload:message
         })
     }
 }
@@ -29,9 +30,10 @@ export const cpslesSingle = (id) => async (dispatch) =>{
             payload:data
         })
     }catch (error) {
+        const message = error.response && error.response.data.message ? error.response.data.message : error.message
         dispatch({
             type:'CAPSULE_SINGLE_FALSE',
-            payload: error.response && error.response.data.message?error.response.data.message:error.message
+            payload: message
         })
     }
 }
@@ -56,10 +58,7 @@ export const delCapsule = (id) => async (dispatch, getState) => {
             type: actionTypes.CAPSULE_DEL_SUCCESS,
         })
     } catch (error) {
-        const message =
-            error.response && error.response.data.message
-                ? error.response.data.message
-                : error.message
+        const message = error.response && error.response.data.message ? error.response.data.message : error.message
         dispatch({
             type: actionTypes.CAPSULE_DEL_FAIL,
             payload: message,
@@ -76,7 +75,6 @@ export const createComm = (capsuleId, comm) => async (dispatch, getState) => {
 
         const config = {
             headers: {
-                'Content-Type': 'application/json',
                 Authorization: `Bearer ${uInf.token}`,
             },
         }
@@ -88,7 +86,7 @@ export const createComm = (capsuleId, comm) => async (dispatch, getState) => {
         })
     } catch (error) {
         const message = error.response && error.response.data.message ? error.response.data.message : error.message
-        if (message === 'Нет авториирован, ошибка токена') {
+        if (message === 'Не авторизирован, ошибка токена') {
             dispatch(logout())
         }
         dispatch({
@@ -120,10 +118,7 @@ export const MadeNewCapsule = () => async (dispatch, getState) => {
             payload: data
         })
     } catch (error) {
-        const message =
-            error.response && error.response.data.message
-                ? error.response.data.message
-                : error.message
+        const message = error.response && error.response.data.message ? error.response.data.message : error.message
         dispatch({
             type: actionTypes.CAPSULE_MADE_NEW_FAIL,
             payload: message,
@@ -141,7 +136,6 @@ export const SetCapsule = (capsule) => async (dispatch, getState) => {
 
         const config = {
             headers: {
-                'Content-Type': 'application/json',
                 Authorization: `Bearer ${uInf.token}`,
             },
         }
@@ -153,10 +147,7 @@ export const SetCapsule = (capsule) => async (dispatch, getState) => {
             payload: data
         })
     } catch (error) {
-        const message =
-            error.response && error.response.data.message
-                ? error.response.data.message
-                : error.message
+        const message = error.response && error.response.data.message ? error.response.data.message : error.message
         dispatch({
             type: actionTypes.CAPSULE_SET_FAIL,
             payload: message,

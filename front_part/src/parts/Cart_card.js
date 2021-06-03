@@ -11,7 +11,6 @@ const Cart_card = ({match,history}) => {
     const dispatch = useDispatch()
     const cart = useSelector(state=>state.cart)
     const {cartItems} = cart
-    //console.log(cartItems)
     useEffect(()=>{
         if(capsId){
             dispatch(addItem(capsId))
@@ -21,12 +20,7 @@ const Cart_card = ({match,history}) => {
     const removeItem =(id)=>{
        dispatch(remItem(id))
     }
- /*const procCheckout =()=>{
-     history.push('/login?redirect=buy')
- }*/
-
     const checkoutForBuy= () => {
-       /* history.push('/buy')*/
         dispatch(saveBuyCapsule('SavePay'))
         history.push('/allpayment')
     }

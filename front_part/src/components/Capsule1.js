@@ -1,20 +1,7 @@
-import {Card, Button} from 'react-bootstrap'
+import {Card} from 'react-bootstrap'
 import {Link} from 'react-router-dom'
-import {addItem} from '../actions/cartActions.js'
-import {connect, useDispatch, useSelector} from 'react-redux'
-import {useEffect} from "react";
-import {cpslesSingle} from '../actions/capsuleActions.js'
+const Capsule1=({Capsule})=>{
 
-const Capsule1=({Capsule, addItem, history, match})=>{
-    const capsuleSingle = useSelector(state => state.capsuleSingle)
-    const{error, capsule} = capsuleSingle
-    const dispatch= useDispatch()
-    useEffect(()=>{
-        dispatch(cpslesSingle(Capsule._id))
-    },[dispatch,match])
-   /* const addToBasket =()=>{
-        history.push(`/cart/${Capsule._id}`)
-    }*/
     return(
         <Card className='my-3 p-3 rounded'>
                 <img src={Capsule.picture} variant='top' alt={Capsule.picture}/>
@@ -35,7 +22,5 @@ const Capsule1=({Capsule, addItem, history, match})=>{
         </Card>
     )
 }
-const mapDispatchToProps = (dispatch) => ({
-    addItem: Capsule => dispatch(addItem(Capsule))
-});
-export default connect(null,mapDispatchToProps)(Capsule1)
+
+export default Capsule1

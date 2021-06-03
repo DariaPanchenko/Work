@@ -1,7 +1,7 @@
 import {Link} from 'react-router-dom'
 import {useState,useEffect} from 'react'
 import './Prod_card'
-import {Button, Image, Row, Col, Form, ListGroup, Card} from 'react-bootstrap'
+import {Button, Row, Col, Form, ListGroup, Card} from 'react-bootstrap'
 import {useDispatch} from 'react-redux'
 import {useSelector} from 'react-redux'
 import {cpslesSingle, createComm} from '../actions/capsuleActions'

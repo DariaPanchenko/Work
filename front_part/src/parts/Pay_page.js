@@ -8,7 +8,6 @@ import {orderMade} from '../actions/paidActions.js'
 const Pay_page = ({history}) =>{
     const dispatch = useDispatch()
     const cart = useSelector(state=>state.cart)
-    //   Calculate prices
     const addDecimals = (num) => {
         return (Math.round(num * 100) / 100).toFixed(2)
     }
@@ -21,10 +20,7 @@ const Pay_page = ({history}) =>{
     useEffect(() => {
         if (success) {
             history.push(`/order/${ord._id}`)
-            /*dispatch({ type: USER_DETAILS_RESET })
-            dispatch({ type: ORDER_CREATE_RESET })*/
         }
-        // eslint-disable-next-line
     }, [history, success])
 
     const placeOrderHandler=()=>{

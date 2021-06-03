@@ -7,7 +7,6 @@ import {allCpsles} from '../actions/capsuleActions'
 import './Prod_card.css'
 
 const Prod_card = () =>{
-   // const [Capsules, setCapsules]=useState([])
     const dispatch = useDispatch()
     const allCapsules = useSelector(state =>state.allCapsules)
     const  {error,Capsules} = allCapsules

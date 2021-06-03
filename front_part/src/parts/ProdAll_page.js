@@ -29,11 +29,6 @@ const ProdALL_page = ({history}) =>{
         }else {
             dispatch(allCpsles())
         }
-        /*if(uInf && uInf.admin){
-            dispatch(allCpsles())
-        }else {
-            history.push('/login')
-        }*/
     },[dispatch, history, uInf,successDel, successMadeNew,OkNewCapsule])
 
     const createCapsHandler=()=>{

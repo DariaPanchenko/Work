@@ -11,7 +11,6 @@ export const orderMade = (ord) => async (dispatch, getState) => {
 
         const config = {
             headers: {
-                'Content-Type': 'application/json',
                 Authorization: `Bearer ${uInf.token}`,
             },
         }
@@ -22,16 +21,9 @@ export const orderMade = (ord) => async (dispatch, getState) => {
             type: actionTypes.MADE_ORDER_SUCCESS,
             payload: data,
         })
-     /*   dispatch({
-            type: CART_CLEAR_ITEMS,
-            payload: data,
-        })
-        localStorage.removeItem('cartItems')*/
+
     } catch (error) {
-        const message =
-            error.response && error.response.data.message
-                ? error.response.data.message
-                : error.message
+        const message = error.response && error.response.data.message ? error.response.data.message : error.message
         dispatch({
             type: actionTypes.MADE_ORDER_FAIL,
             payload: message,
@@ -56,10 +48,7 @@ export const getOrderId = (id) => async (dispatch, getState) => {
             payload: data,
         })
     } catch (error) {
-        const message =
-            error.response && error.response.data.message
-                ? error.response.data.message
-                : error.message
+        const message = error.response && error.response.data.message ? error.response.data.message : error.message
         dispatch({
             type: actionTypes.ORDER_ID_FAIL,
             payload: message,
@@ -77,7 +66,6 @@ export const procPayOrder = (ordId, paymentResult) => async (dispatch, getState)
 
         const config = {
             headers: {
-                'Content-Type': 'application/json',
                 Authorization: `Bearer ${uInf.token}`,
             },
         }
@@ -89,10 +77,7 @@ export const procPayOrder = (ordId, paymentResult) => async (dispatch, getState)
             payload: data,
         })
     } catch (error) {
-        const message =
-            error.response && error.response.data.message
-                ? error.response.data.message
-                : error.message
+        const message = error.response && error.response.data.message ? error.response.data.message : error.message
         dispatch({
             type: actionTypes.ORDER_PAID_FAIL,
             payload: message,
@@ -121,10 +106,7 @@ export const userPaidOrderGet = () => async (dispatch, getState) => {
             payload: data,
         })
     } catch (error) {
-        const message =
-            error.response && error.response.data.message
-                ? error.response.data.message
-                : error.message
+        const message = error.response && error.response.data.message ? error.response.data.message : error.message
         dispatch({
             type: actionTypes.ORDERS_SEE_PAID_FAIL,
             payload: message,
@@ -154,10 +136,7 @@ export const AllOrderGet = () => async (dispatch, getState) => {
             payload: data,
         })
     } catch (error) {
-        const message =
-            error.response && error.response.data.message
-                ? error.response.data.message
-                : error.message
+        const message = error.response && error.response.data.message ? error.response.data.message : error.message
         dispatch({
             type: actionTypes.ORDERS_ALL_FAIL,
             payload: message,

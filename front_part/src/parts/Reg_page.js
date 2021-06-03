@@ -34,7 +34,7 @@ const Reg_page = ({location, history}) =>{
         if(password!==repeatPassword){
             setMessage('Пароли не совпадают')
         } else{
-        dispatch(register(name,email,password))
+         dispatch(register(name,email,password))
         }
     }
     return(

@@ -26,7 +26,7 @@ const usrForm = mongoose.Schema({
         default: false
     },
     passcode:{
-        data: String,
+        type: String,
         required: false
     }
 },{timestamps:true})
@@ -38,5 +38,6 @@ usrForm.pre('save', async function (next) {   if(!this.isModified('password')){n
     const salt = await bcrypt.genSalt(10)
     this.password = await bcrypt.hash(this.password, salt)
 })
+
 const User = mongoose.model('User', usrForm)
 export default User

@@ -17,8 +17,6 @@ export const madeOrderReducer = (state = {}, action)=>{
                 broadcast: false,
                 error: action.payload,
             }
-       /* case ORDER_CREATE_RESET:
-            return {}*/
         default:
             return state
     }

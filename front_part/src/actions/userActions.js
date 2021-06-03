@@ -1,6 +1,5 @@
 import actionTypes from '../reducers/actionTypes.js'
 import axios from 'axios'
-//make req
 export const login = (email,password) =>async (dispatch)=>{
     try{
       dispatch({
@@ -15,9 +14,10 @@ export const login = (email,password) =>async (dispatch)=>{
 
         localStorage.setItem('uInf',JSON.stringify(data))
     }catch (error) {
+        const message = error.response && error.response.data.message ? error.response.data.message : error.message
         dispatch({
             type: actionTypes.USER_LOG_FAIL,
-            payload: error.response && error.response.data.message?error.response.data.message:error.message
+            payload: message
         })
     }
 }
@@ -37,43 +37,31 @@ export const register = (name, email,password) =>async (dispatch)=>{
         dispatch({
             type: actionTypes.USER_REG_REQ,
         })
-        const config = {
-            headers: {
-                'Content-Type': 'application/json',
-            },
-        }
-        const{data} = await axios.post('/api/users', {name,email,password},config)
+
+        const{data} = await axios.post('/api/users', {name,email,password})
         dispatch({
             type:actionTypes.USER_REG_SUCCESS,
             payload: data
         })
-        dispatch({
-            type:actionTypes.USER_LOG_SUCCESS,
-            payload: data
-        })
         localStorage.setItem('uInf',JSON.stringify(data))
     }catch (error) {
+        const message = error.response && error.response.data.message ? error.response.data.message : error.message
         dispatch({
             type: actionTypes.USER_REG_FAIL,
-            payload: error.response && error.response.data.message?error.response.data.message:error.message
+            payload: message
         })
     }
 }
 export const restoreEmail = (email) => async (dispatch) => {
     try {
 
-        const config = {
-            headers: {
-                'Content-Type': 'application/json',
-            },
-        }
-
-        const { data } = await axios.post('/api/users/restore', { email }, config)
+        await axios.post('/api/users/restore', { email })
 
     } catch (error) {
+        const message = error.response && error.response.data.message ? error.response.data.message : error.message
         dispatch({
             type: actionTypes.USER_LOG_FAIL,
-            payload: error.response && error.response.data.message ? error.response.data.message : error.message,
+            payload: message
         })
     }
 }
@@ -84,17 +72,21 @@ export const submitEmail = (user) => async (dispatch, getState) => {
             type: actionTypes.USER_SUBMIT_REQ,
         })
 
-        const {userLog: { uInf },} = getState()
+        const {userRegister: { uInf },} = getState()
         const config = {
             headers: {
-                'Content-Type': 'application/json',
                 Authorization: `Bearer ${uInf.token}`,
             },
         }
         const { data } = await axios.put(`/api/users/profile`, user, config)
+
         dispatch({
             type: actionTypes.USER_SUBMIT_SUCCESS,
             payload: data,
+        })
+        dispatch({
+            type:actionTypes.USER_REG_SUCCESS,
+            payload: data
         })
         dispatch({
             type: actionTypes.USER_LOG_SUCCESS,
@@ -130,9 +122,10 @@ export const paramProfile = (id) =>async (dispatch, getState)=>{
             payload: data
         })
     }catch (error) {
+        const message = error.response && error.response.data.message ? error.response.data.message : error.message
         dispatch({
             type: actionTypes.USER_PARAM_FAIL,
-            payload: error.response && error.response.data.message?error.response.data.message:error.message
+            payload: message
         })
     }
 }
@@ -159,9 +152,10 @@ export const updProfile = (userProf) =>async (dispatch, getState)=>{
         })
         localStorage.setItem('uInf',JSON.stringify(data))
     }catch (error) {
+        const message = error.response && error.response.data.message ? error.response.data.message : error.message
         dispatch({
             type: actionTypes.USER_UPDPROF_FAIL,
-            payload: error.response && error.response.data.message?error.response.data.message:error.message
+            payload: message
         })
     }
 }
@@ -183,9 +177,10 @@ export const AllUsersForAdm = () =>async (dispatch, getState)=>{
             payload: data
         })
     } catch (error) {
+        const message = error.response && error.response.data.message ? error.response.data.message : error.message
         dispatch({
             type: actionTypes.USER_ALL_FORADM_FAIL,
-            payload: error.response && error.response.data.message?error.response.data.message:error.message
+            payload: message
         })
     }
 }
@@ -206,9 +201,10 @@ export const DelUserForAdm = (id) =>async (dispatch, getState)=>{
             type:actionTypes.USER_DEL_FORADM_SUCCESS
         })
     } catch (error) {
+        const message = error.response && error.response.data.message ? error.response.data.message : error.message
         dispatch({
             type: actionTypes.USER_DEL_FORADM_FAIL,
-            payload: error.response && error.response.data.message?error.response.data.message:error.message
+            payload: message
         })
     }
 }
@@ -220,7 +216,6 @@ export const ChangeUserForAdm = (user) =>async (dispatch, getState)=>{
         const {userLog: {uInf}} = getState()
         const config ={
             headers: {
-                'Content-Type':'application/json',
                 Authorization: `Bearer ${uInf.token}`
             },
         }
@@ -233,9 +228,10 @@ export const ChangeUserForAdm = (user) =>async (dispatch, getState)=>{
             payload:data
         })
     } catch (error) {
+        const message = error.response && error.response.data.message ? error.response.data.message : error.message
         dispatch({
             type: actionTypes.USER_CHANGE_FORADM_FAIL,
-            payload: error.response && error.response.data.message?error.response.data.message:error.message
+            payload: message
         })
     }
 }

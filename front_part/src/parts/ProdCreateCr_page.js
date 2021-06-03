@@ -1,6 +1,4 @@
 import {useEffect, useState} from 'react'
-import {Link} from 'react-router-dom'
-import axios from 'axios'
 import {useDispatch, useSelector} from 'react-redux'
 import {cpslesSingle} from '../actions/capsuleActions'
 import {Form, Button, Row, Col, Card} from 'react-bootstrap'

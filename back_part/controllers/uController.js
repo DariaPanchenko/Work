@@ -38,7 +38,6 @@ const authorizationUser=expressAsyncHandler(async (req,res)=>{
 })
 //     Restore password
 //     POST /api/restore
-// @access  Public
 const restoreUser = asyncHandler(async (req, res) => {
     const { email } = req.body
 
@@ -105,7 +104,6 @@ const registrationUser=asyncHandler(async (req,res)=>{
         throw new Error('Неверные данные')
     }
 })
-
 // GET /api/users/profile  ptv
 // user profile
 const userProfile = asyncHandler(async (req,res)=>{

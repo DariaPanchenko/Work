@@ -48,67 +48,67 @@ const Prof_page = ({ history}) =>{
         }
     }
     return( <Row>
-            <Col md={4}>
-            <h3 className="subtitle"> Изменить профиль </h3>{broadcast && <h3>Загрузка</h3>}
-            {error && <h3>{error}</h3>}
-            {message && <h3>{message}</h3>}
-            {success && <h3>Вы изменили данные</h3>}
-            <Form onSubmit={submitHandler}>
-                <Form.Group controlId='email'>
-                    <Form.Label>Эл.почта</Form.Label>
-                    <Form.Control type='email'  placeholder='' value={email} onChange={(e)=>setEmail(e.target.value)}></Form.Control>
-                </Form.Group>
+                <Col md={4}>
+                <h3 className="subtitle"> Изменить профиль </h3>{broadcast && <h3>Загрузка</h3>}
+                {error && <h3>{error}</h3>}
+                {message && <h3>{message}</h3>}
+                {success && <h3>Вы изменили данные</h3>}
+                <Form onSubmit={submitHandler}>
+                    <Form.Group controlId='email'>
+                        <Form.Label>Эл.почта</Form.Label>
+                        <Form.Control type='email'  placeholder='' value={email} onChange={(e)=>setEmail(e.target.value)}></Form.Control>
+                    </Form.Group>
 
-                <Form.Group controlId='password'>
-                    <Form.Label>Пароль</Form.Label>
-                    <Form.Control type='password'  placeholder='' value={password} onChange={(e)=>setPassword(e.target.value)}></Form.Control>
-                </Form.Group>
+                    <Form.Group controlId='password'>
+                        <Form.Label>Пароль</Form.Label>
+                        <Form.Control type='password'  placeholder='' value={password} onChange={(e)=>setPassword(e.target.value)}></Form.Control>
+                    </Form.Group>
 
-                <Form.Group controlId='repeatPassword'>
-                    <Form.Label>Подтвердите пароль</Form.Label>
-                    <Form.Control type='password'  placeholder='' value={repeatPassword} onChange={(e)=>setRepeatPassword(e.target.value)}></Form.Control>
-                </Form.Group>
-                <Button className="btn-dark" type='submit' variant='primary'>Изменить</Button>
-            </Form>
-            </Col>
-            <Col md={8} className="mx-auto">
-                <Card>
-                    <img className="card-img" src={'../../pic/fon.png'} alt="fon"/>
-                    <div className="card-img-overlay">
-                        <ListGroup variant="flush">
-                            <h3>Товары</h3>
-                            <div className="scroll__pgU">
-                            {broadcastGetOrds?(<h3>Загрузка...</h3>):errorGetOrds?(<h3>{errorGetOrds}</h3>):(
-                                ords.map((ord) => (
-                                <div key={ord._id}>
-                                    <div className="hr">
+                    <Form.Group controlId='repeatPassword'>
+                        <Form.Label>Подтвердите пароль</Form.Label>
+                        <Form.Control type='password'  placeholder='' value={repeatPassword} onChange={(e)=>setRepeatPassword(e.target.value)}></Form.Control>
+                    </Form.Group>
+                    <Button className="btn-dark" type='submit' variant='primary'>Изменить</Button>
+                </Form>
+                </Col>
+                <Col md={8} className="mx-auto">
+                    <Card>
+                        <img className="card-img" src={'../../pic/fon.png'} alt="fon"/>
+                        <div className="card-img-overlay">
+                            <ListGroup variant="flush">
+                                <h3>Товары</h3>
+                                <div className="scroll__pgU">
+                                {broadcastGetOrds?(<h3>Загрузка...</h3>):errorGetOrds?(<h3>{errorGetOrds}</h3>):(
+                                    ords.map((ord) => (
+                                    <div key={ord._id}>
+                                        <div className="hr">
+                                        </div>
+                                        <div>
+                                            <h5>Заказ: {ord._id}</h5>
+                                        </div>
+                                        <div>
+                                            <h5>Цена: {ord.allPrice} ₽</h5>
+                                        </div>
+                                        <div>
+                                            <h5>Оплачено: {ord.paidFinish?(
+                                                ord.datePaid.substring(0, 10)):(<h5>Нет</h5>
+                                            )}</h5>
+                                        </div>
+                                        <div>
+                                            <LinkContainer to={`/order/${ord._id}`}>
+                                                <Button className="btn-sm btn-dark">
+                                                    Посмотреть
+                                                </Button>
+                                            </LinkContainer>
+                                        </div>
                                     </div>
-                                    <div>
-                                        <h5>Заказ: {ord._id}</h5>
-                                    </div>
-                                    <div>
-                                        <h5>Цена: {ord.allPrice} ₽</h5>
-                                    </div>
-                                    <div>
-                                        <h5>Оплачено: {ord.paidFinish?(
-                                            ord.datePaid.substring(0, 10)):(<h5>Нет</h5>
-                                        )}</h5>
-                                    </div>
-                                    <div>
-                                        <LinkContainer to={`/order/${ord._id}`}>
-                                            <Button className="btn-sm btn-dark">
-                                                Посмотреть
-                                            </Button>
-                                        </LinkContainer>
-                                    </div>
+                                    ))
+                                    )}
                                 </div>
-                                ))
-                                )}
-                            </div>
-                        </ListGroup>
-                    </div>
-                </Card>
-            </Col>
+                            </ListGroup>
+                        </div>
+                    </Card>
+                </Col>
             </Row>
     )
 }

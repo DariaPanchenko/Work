@@ -40,9 +40,5 @@ router.route('/').post(registrationUser).get(security,isAdmin,userAllForAdmin)
 router.route('/restore').post(restoreUser)
 router.post('/login',authorizationUser)
 router.route('/profile').get(security, userProfile).put(security, userProfileUpd)
-router
-    .route('/:id')
-    .delete(security,isAdmin,delUserForAdmin)
-    .get(security,isAdmin,userGetIdForAdmin)
-    .put(security,isAdmin,userUpdateForAdmin)
+router.route('/:id').delete(security,isAdmin,delUserForAdmin).get(security,isAdmin,userGetIdForAdmin).put(security,isAdmin,userUpdateForAdmin)
 export default router

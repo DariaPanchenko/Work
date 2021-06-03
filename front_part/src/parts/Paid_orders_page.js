@@ -1,12 +1,11 @@
 import {Link} from 'react-router-dom'
 import { useState, useEffect } from 'react'
-import { Button, Row, Col, ListGroup, Image, Card } from 'react-bootstrap'
+import { Row, Col, ListGroup, Image, Card } from 'react-bootstrap'
 import { useDispatch, useSelector } from 'react-redux'
 import {getOrderId, procPayOrder} from '../actions/paidActions.js'
 import axios from 'axios'
 import {PayPalButton} from 'react-paypal-button-v2'
 import actionTypes from '../reducers/actionTypes.js'
-
 
 const Paid_orders_page = ({match}) =>{
     const ordId = match.params.id
@@ -31,7 +30,6 @@ const Paid_orders_page = ({match}) =>{
             }
             document.body.appendChild(script)
         }
-
         if(!ord || successProcPay || ord._id !== ordId) {
             dispatch({type: actionTypes.ORDER_PAID_RESET})
             dispatch(getOrderId(ordId))
@@ -86,7 +84,7 @@ const Paid_orders_page = ({match}) =>{
                             </div>
                             <div>
                                 <h4 className="subtitle__CartFinish">Состояние оплаты: </h4>
-                                {ord.paidFinish ? (<p>Дата {ord.datePaid}</p>
+                                {ord.paidFinish ? (<p>Дата {ord.datePaid.substring(0, 10)}</p>
                                 ) : (<p>Не оплачено</p>)}
                             </div>
                             <div>
@@ -100,20 +98,6 @@ const Paid_orders_page = ({match}) =>{
                                         <PayPalButton amount={ord.allPrice}  onSuccess={successPayHandler} options={{currency: "RUB"}}></PayPalButton>
                                         )
                                     }
-                                    <p>ИЛИ</p>
-                                    <form method="POST" action="https://yoomoney.ru/quickpay/confirm.xml">
-                                        <input type="hidden" name="receiver" value="4100116763100342"/>
-                                        <input type="hidden" name="label" value={ord._id}/>
-                                        <input type="hidden" name="quickpay-form" value="donate"/>
-                                        <input type="hidden" name="targets" value="транзакция "/>
-                                        <input type="hidden" name="sum" value={ord.allPrice} data-type="number"/>
-                                        <input type="hidden" name="need-fio" value="true"/>
-                                        <input type="hidden" name="need-email" value="true"/>
-                                        <input type="hidden" name="need-phone" value="false"/>
-                                        <input type="hidden" name="need-address" value="false"/>
-                                        <label className="descr__paid_orders"><input type="radio" name="paymentType" value="PC"/>ЮMoney</label>
-                                        <input type="button" value="Перевести"/>
-                                    </form>
                                 </div>
                             )}
                         </ListGroup>

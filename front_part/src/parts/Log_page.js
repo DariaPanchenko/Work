@@ -4,14 +4,12 @@ import {useDispatch, useSelector} from 'react-redux'
 import {login} from '../actions/userActions'
 import {Form, Button, Row, Col, Card} from 'react-bootstrap'
 import './Prod_card'
-
-
 const Log_page = ({location, history}) =>{
     const [email,setEmail] = useState('')
     const [password,setPassword] = useState('')
     const dispatch = useDispatch()
     const userLog = useSelector(state => state.userLog)
-    const {broadcast,error,uInf} = userLog
+    const {error,uInf} = userLog
     const redirect = location.search?location.search.split('=')[1] : '/'
     useEffect(()=>{
         if(uInf){

@@ -56,21 +56,6 @@ export const uForgotPassReducer =(state= { },action)=>{
     }
 }
 
-export const uResetPassReducer=(state= { },action)=>{
-    switch (action.type){
-        case actionTypes.USER_RESET_REQ:
-            return {broadcast:true}
-        case actionTypes.USER_RESET_SUCCESS:
-            return {broadcast:false, uInfores: action.payload, success: true}
-        case actionTypes.USER_RESET_FAIL:
-            return {broadcast:false, error: action.payload}
-        case actionTypes.USER_RESET_RESET:
-            return {}
-        default:
-            return state
-    }
-}
-
 export const uParamReducer =(state= { userProf:{}},action)=>{
     switch (action.type){
         case actionTypes.USER_PARAM_REQ:

@@ -8,8 +8,8 @@ const Submit_page = ({history}) => {
     const [passcode, setPasscode] = useState('')
     const [message,setMessage] = useState(null)
     const dispatch = useDispatch()
-    const userLog = useSelector(state => state.userLog)
-    const {broadcast,error,uInf} = userLog
+    const userRegister = useSelector(state => state.userRegister)
+    const {broadcast,error,uInf} = userRegister
     const userSubmit = useSelector(state=>state.userSubmit)
     const {success: successSubmit} = userSubmit
 
@@ -20,7 +20,7 @@ const Submit_page = ({history}) => {
         else if(uInf.passcode === '-1'){
             history.push('/')
         }
-    }, [dispatch, history, uInf.id, uInf, successSubmit])
+    }, [dispatch, history, uInf._id, uInf, successSubmit])
 
     const submitHandler = (e) => {
         e.preventDefault()
