@@ -5,7 +5,6 @@ import express from 'express'
 import {authorizationUser, restoreUser, registrationUser, userProfile,
     userProfileUpd,userAllForAdmin,delUserForAdmin, userGetIdForAdmin,userUpdateForAdmin,/*, userForgotPass, userResetPass*/ } from '../controllers/uController.js'
 const router = express.Router()
-
 const security = asyncHandler(async (req,res,next) =>{
     let token
     if(req.headers.authorization && req.headers.authorization.startsWith('Bearer')){
@@ -25,7 +24,6 @@ const security = asyncHandler(async (req,res,next) =>{
         console.log('Нет токена')
         throw new Error('Нет токена')
     }
-
 })
 const isAdmin = (req,res,next) =>{
     if(req.user && req.user.admin){

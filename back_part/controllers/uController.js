@@ -36,8 +36,9 @@ const authorizationUser=expressAsyncHandler(async (req,res)=>{
         res.status(401).json({message:'Неверный email или пароль'})
     }
 })
+
 //     Restore password
-//     POST /api/restore
+//     POST /api/users/restore
 const restoreUser = asyncHandler(async (req, res) => {
     const { email } = req.body
 
@@ -63,15 +64,22 @@ const restoreUser = asyncHandler(async (req, res) => {
         throw new Error('Invalid email')
     }
 })
+
 // POST /api/users
 // User registration
 const registrationUser=asyncHandler(async (req,res)=>{
     const {name, email,password} =req.body
 
     const userExts = await User.findOne({email})
+    const userExtsName = await User.findOne({name})
+
     if(userExts){
         res.status(400)
-        throw new Error('Пользователь уже существует')
+        throw new Error('Пользователь уже существует с такой почтой')
+    }
+    if(userExtsName){
+        res.status(400)
+        throw new Error('Пользователь уже существует c таким именем')
     }
     const user = await User.create({
         name,
@@ -104,6 +112,7 @@ const registrationUser=asyncHandler(async (req,res)=>{
         throw new Error('Неверные данные')
     }
 })
+
 // GET /api/users/profile  ptv
 // user profile
 const userProfile = asyncHandler(async (req,res)=>{
@@ -152,6 +161,7 @@ const userProfileUpd = asyncHandler(async (req,res)=>{
         throw new Error('Пользователь не найден')
     }
 })
+
 // GET /api/users  ptv admin
 // get user profile all
 const userAllForAdmin = asyncHandler(async (req,res)=>{

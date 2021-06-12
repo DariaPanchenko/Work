@@ -51,7 +51,6 @@ const madeNewCapsule =expressAsyncHandler(async (req,res)=>{
 // PUT /api/capsules/:id  prv
 const updateCapsule =expressAsyncHandler(async (req,res)=>{
     const {name,price,picture,author,contact,link,descr} = req.body
-
     const capsule = await Capsule.findById(req.params.id)
 
     if(capsule){
@@ -86,7 +85,7 @@ const createCapsuleComm = asyncHandler(async (req, res) => {
         capsule.comms.push(all_block)
         capsule.countComm = capsule.comms.length
         await capsule.save()
-        res.status(201).json({ message: 'Отзыв добавлен' })
+        res.status(201).json(capsule)
     } else {
         res.status(404)
         throw new Error('Капсула не найдена')

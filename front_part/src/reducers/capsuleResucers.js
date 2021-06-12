@@ -58,7 +58,7 @@ export const CapsuleMadeNewReducer = (state= { },action) =>{
          case actionTypes.CAPSULE_COMM_REQ:
              return { broadcast: true }
          case actionTypes.CAPSULE_COMM_SUCCESS:
-             return { broadcast: false, success: true }
+             return { broadcast: false, success: true}
          case actionTypes.CAPSULE_COMM_FAIL:
              return { broadcast: false, error: action.payload }
          case actionTypes.CAPSULE_COMM_RESET:

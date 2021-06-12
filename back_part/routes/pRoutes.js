@@ -30,7 +30,6 @@ const security = asyncHandler(async (req,res,next) =>{
         console.log('Нет токена')
         throw new Error('Нет токена')
     }
-
 })
 const isAdmin = (req,res,next) =>{
     if(req.user && req.user.admin){

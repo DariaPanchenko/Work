@@ -11,7 +11,6 @@ export const login = (email,password) =>async (dispatch)=>{
             type:actionTypes.USER_LOG_SUCCESS,
             payload: data
         })
-
         localStorage.setItem('uInf',JSON.stringify(data))
     }catch (error) {
         const message = error.response && error.response.data.message ? error.response.data.message : error.message

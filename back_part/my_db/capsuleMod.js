@@ -57,7 +57,6 @@ const capsuleForm = mongoose.Schema({
         default: 0
     }
 },{timestamps:true})
-
 const Capsule = mongoose.model('Capsule',capsuleForm)
 
 export default Capsule

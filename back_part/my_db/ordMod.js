@@ -1,5 +1,4 @@
 import mongoose from 'mongoose'
-
 const ordForm = mongoose.Schema({
     user:{
         type:mongoose.Schema.Types.ObjectId,
@@ -54,7 +53,6 @@ const ordForm = mongoose.Schema({
     }
 
 },{timestamps:true})
-
 const Ord = mongoose.model('Ord',ordForm)
 
 export default Ord

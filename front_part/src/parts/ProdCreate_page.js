@@ -5,6 +5,7 @@ import {Form, Button,Row,Col,Card} from 'react-bootstrap'
 import {SetCapsule} from '../actions/capsuleActions'
 import actionTypes from '../reducers/actionTypes'
 import './Prod_card'
+import axios from "axios";
 
 const ProdCreate_page = ({match, history}) =>{
     const capsuleId = match.params.id
@@ -15,13 +16,14 @@ const ProdCreate_page = ({match, history}) =>{
     const [contact,newContact] = useState('')
     const [link,newLink] = useState('')
     const [descr,newDescr] = useState('')
-
+    const [pictureNew, addPictureNew] = useState('false')
 
     const dispatch = useDispatch()
     const capsuleSingle = useSelector(state => state.capsuleSingle)
     const {broadcast,error,capsule} = capsuleSingle
     const CapsuleSet = useSelector(state => state.CapsuleSet)
     const {broadcast: broadcastCapsSet,error:errorCapsSet, success: successCapsSet } = CapsuleSet
+
     useEffect(()=>{
         if(successCapsSet){
             dispatch({type:actionTypes.CAPSULE_SET_RESET})
@@ -40,6 +42,25 @@ const ProdCreate_page = ({match, history}) =>{
             }
     },[dispatch,history,capsuleId,capsule,successCapsSet])
 
+    const addPictureHandler = async (e)=>{
+        const file = e.target.files[0]
+        const formData = new FormData()
+        formData.append('picture', file)
+        addPictureNew(true)
+        try {
+            const config = {
+                headers:{
+                    'Content-Type':'multipart/form-data'
+                }
+            }
+            const {data} = axios.post('/api/upload',formData,config)
+            newPicture(data)
+            addPictureNew(false)
+        }catch (error){
+            console.error(error)
+            addPictureNew(false)
+        }
+    }
     const submitHandler = (e) =>{
         e.preventDefault()
         dispatch(SetCapsule({ _id: capsule._id,name, price,picture,author,contact,link,descr}))
@@ -58,47 +79,50 @@ const ProdCreate_page = ({match, history}) =>{
                                         <div>
                                             <h2 className="userAll__title">Создать подборку</h2>
                                         </div>
-                                     <Row>
-                                        <Col md={5}>
-                                            <div>
-                                                <h6 className="prodCreate__descr">Название подборки</h6>
-                                                 <input className="form-control prodCreate__inpt" type='name' required placeholder='' value={name} onChange={(e)=>newName(e.target.value)}></input>
-                                            </div>
+                                        <Row>
+                                            <Col md={5}>
+                                                <div>
+                                                    <h6 className="prodCreate__descr">Название подборки</h6>
+                                                    <input className="form-control prodCreate__inpt" type='name' required placeholder='' value={name} onChange={(e)=>newName(e.target.value)}></input>
+                                                </div>
 
-                                             <div>
-                                                <h6 className="prodCreate__descr">Цена</h6>
-                                                 <input className="form-control prodCreate__inpt"required placeholder='' value={price} onChange={(e)=>newPrice(e.target.value)}></input>
-                                             </div>
+                                                <div>
+                                                    <h6 className="prodCreate__descr">Цена</h6>
+                                                    <input className="form-control prodCreate__inpt" type='number' required placeholder='' value={price} onChange={(e)=>newPrice(e.target.value)}></input>
+                                                </div>
 
-                                             <div>
-                                                 <h6 className="prodCreate__descr">Картинка</h6>
-                                                 <input className="form-control prodCreate__inpt" type='text' required placeholder='' value={picture} onChange={(e)=>newPicture(e.target.value)}></input>
-                                              </div>
-                                       </Col>
-                                         <Col md={5}>
-                                             <div>
-                                                <h6 className="prodCreate__descr">Автор подборки</h6>
-                                                 <input className="form-control prodCreate__inpt" type='text' required placeholder='' value={author} onChange={(e)=>newAuthor(e.target.value)}></input>
-                                             </div>
+                                                <div>
+                                                    <h6 className="prodCreate__descr">Картинка</h6>
+                                                    <input className="form-control prodCreate__inpt" type='text' required placeholder='' value={picture} onChange={(e)=>newPicture(e.target.value)}></input>
+                                                    <input type="file" onChange={addPictureHandler}></input>
+                                                    {pictureNew && <h4>Выберите файл</h4>}
 
-                                            <div>
-                                                <h6 className="prodCreate__descr">Связь с автором</h6>
-                                                <input className="form-control prodCreate__inpt" type='text' required placeholder='' value={contact} onChange={(e)=>newContact(e.target.value)}></input>
-                                            </div>
+                                                </div>
+                                            </Col>
+                                            <Col md={5}>
+                                                <div>
+                                                    <h6 className="prodCreate__descr">Автор подборки</h6>
+                                                    <input className="form-control prodCreate__inpt" type='text' required placeholder='' value={author} onChange={(e)=>newAuthor(e.target.value)}></input>
+                                                </div>
 
-                                            <div>
-                                                <h6 className="prodCreate__descr">Ссылка на подборку</h6>
-                                                <input className="form-control prodCreate__inpt" type='text' required placeholder='' value={link} onChange={(e)=>newLink(e.target.value)}></input>
-                                            </div>
+                                                <div>
+                                                    <h6 className="prodCreate__descr">Связь с автором</h6>
+                                                    <input className="form-control prodCreate__inpt" type='text' required placeholder='' value={contact} onChange={(e)=>newContact(e.target.value)}></input>
+                                                </div>
 
-                                            <div>
-                                                <h6 className="prodCreate__descr">Описание</h6>
-                                                <input className="form-control prodCreate__inpt" as='textarea'row='3' required placeholder='' value={descr} onChange={(e)=>newDescr(e.target.value)}></input>
-                                            </div>
-                                         </Col>
-                                     </Row>
+                                                <div>
+                                                    <h6 className="prodCreate__descr">Ссылка на подборку</h6>
+                                                    <input className="form-control prodCreate__inpt"type='text' required placeholder='' value={link} onChange={(e)=>newLink(e.target.value)}></input>
+                                                </div>
+
+                                                <div>
+                                                    <h6 className="prodCreate__descr">Описание</h6>
+                                                    <input className="form-control prodCreate__inpt"  as='textarea'row='3' required placeholder='' value={descr} onChange={(e)=>newDescr(e.target.value)}></input>
+                                                </div>
+                                            </Col>
+                                        </Row>
                                         <div className="prodCreate__for__btn">
-                                             <Button type='submit' variant='primary'>Установить</Button>
+                                            <Button type='submit' variant='primary'>Установить</Button>
                                         </div>
                                     </Form>
                                 </div>

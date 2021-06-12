@@ -3,6 +3,7 @@ import {useDispatch, useSelector} from "react-redux";
 import {Form, Button, Row, Col, Card} from 'react-bootstrap'
 import {submitEmail} from "../actions/userActions";
 import './Prod_card'
+import axios from "axios";
 
 const Submit_page = ({history}) => {
     const [passcode, setPasscode] = useState('')
@@ -18,7 +19,7 @@ const Submit_page = ({history}) => {
             history.push('/')
         }
         else if(uInf.passcode === '-1'){
-            history.push('/')
+                history.push('/')
         }
     }, [dispatch, history, uInf._id, uInf, successSubmit])
 

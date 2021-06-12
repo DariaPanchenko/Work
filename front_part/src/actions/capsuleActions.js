@@ -24,7 +24,6 @@ export const cpslesSingle = (id) => async (dispatch) =>{
     try{
         dispatch({type:'CAPSULE_SINGLE_REQ'})
         const {data}=await axios.get(`/api/capsules/${id}`)
-
         dispatch({
             type:'CAPSULE_SINGLE_OK',
             payload:data
@@ -78,8 +77,7 @@ export const createComm = (capsuleId, comm) => async (dispatch, getState) => {
                 Authorization: `Bearer ${uInf.token}`,
             },
         }
-
-        await axios.post(`/api/capsules/${capsuleId}/comms`, comm, config)
+         await axios.post(`/api/capsules/${capsuleId}/comms`, comm, config)
 
         dispatch({
             type: actionTypes.CAPSULE_COMM_SUCCESS,

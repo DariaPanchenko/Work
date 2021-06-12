@@ -14,7 +14,6 @@ const importDocs = async () => {
     try {
         await Ord.deleteMany()
         await Capsule.deleteMany(), await User.deleteMany()
-
         const SimpleUsers = await User.insertMany(all_users)
         const adminUsr = SimpleUsers[0]._id
         const Capsules_add = Capsules.map((Capsule) =>{

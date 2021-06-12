@@ -54,18 +54,19 @@ const Prod_single_page = ({ history, match }) => {
                      </div>
                 </Col>
                 <Col md={4} className="clr__background">
-                    <h5 className="subtitle">Отзывы ({capsule.countComm})</h5>
-                    {capsule.comms.length === 0 && <h4>Нет отзывов</h4>}
+                <h5 className="subtitle">Отзывы ({capsule.countComm})</h5>
+                 {capsule.comms.length === 0 && <h4>Нет отзывов</h4>}
                     <ListGroup variant='flush' className="clr__background">
-                        <div className="scroll__pg">
-                        {capsule.comms.map((co) => (
+                   <div className="scroll__pg">
+                          {capsule.comms.map((co) => (
                             <ListGroup.Item  className="clr__background comment__place" key={co._id}>
                                 <strong className="text-black-50">{co.name}</strong>
                                 <p className="text-black-50">{co.createdAt.substring(0, 10)}</p>
                                 <p className="text-white">{co.comment}</p>
                             </ListGroup.Item>
                         ))}
-                        </div>
+                    </div>
+                       
                         <ListGroup.Item className="clr__background">
                             <h5 className="text-black-50">Оставьте отзыв</h5>
                             {successCapsuleComm && (<h4 variant='success'>Отзыв опубликован</h4>)}

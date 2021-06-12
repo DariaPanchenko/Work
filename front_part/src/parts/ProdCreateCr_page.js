@@ -5,6 +5,7 @@ import {Form, Button, Row, Col, Card} from 'react-bootstrap'
 import {SetCapsule} from '../actions/capsuleActions'
 import actionTypes from '../reducers/actionTypes'
 import './Prod_card'
+import axios from "axios";
 
 const ProdCreateCr_page = ({match, history}) =>{
     const capsuleId = match.params.id
@@ -15,7 +16,7 @@ const ProdCreateCr_page = ({match, history}) =>{
     const [contact,newContact] = useState('')
     const [link,newLink] = useState('')
     const [descr,newDescr] = useState('')
-
+    const [pictureNew, addPictureNew] = useState('false')
 
     const dispatch = useDispatch()
     const capsuleSingle = useSelector(state => state.capsuleSingle)
@@ -40,6 +41,26 @@ const ProdCreateCr_page = ({match, history}) =>{
         }
     },[dispatch,history,capsuleId,capsule,successCapsSet])
 
+    const addPictureHandler = async (e)=>{
+        const file = e.target.files[0]
+        const formData = new FormData()
+        formData.append('picture', file)
+        addPictureNew(true)
+        try {
+            const config = {
+                headers:{
+                    'Content-Type':'multipart/form-data'
+                }
+            }
+            const {data} = axios.post('/api/upload',formData,config)
+            newPicture(data)
+            addPictureNew(false)
+
+        }catch (error){
+            console.error(error)
+            addPictureNew(false)
+        }
+    }
     const submitHandler = (e) =>{
         e.preventDefault()
         dispatch(SetCapsule({ _id: capsule._id,name, price,picture,author,contact,link,descr}))
@@ -73,6 +94,8 @@ const ProdCreateCr_page = ({match, history}) =>{
                                         <div>
                                             <h6 className="prodCreate__descr">Картинка</h6>
                                             <input className="form-control prodCreate__inpt" type='text' required placeholder='' value={picture} onChange={(e)=>newPicture(e.target.value)}></input>
+                                            <input type="file" onChange={addPictureHandler}></input>
+                                            {pictureNew && <h4>Выберите файл</h4>}
                                         </div>
                                             </Col>
                                             <Col md={5}>

@@ -1,6 +1,7 @@
 import mongoose from 'mongoose'
 
 const connection_DB = async () =>{
+
     try{
         const connect = await mongoose.connect(process.env.MONGO,{
             useNewUrlParser:true, useUnifiedTopology:true, useCreateIndex:true,

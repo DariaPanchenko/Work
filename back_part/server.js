@@ -3,6 +3,8 @@ import connection_DB from './config/database.js'
 import cRoutes from './routes/cRoutes.js'
 import uRoutes from './routes/uRoutes.js'
 import pRoutes from './routes/pRoutes.js'
+import picturesRoutes from './routes/picturesRoutes.js'
+import path from 'path'
 import dotenv from 'dotenv'
 const app = express()
 dotenv.config()
@@ -15,7 +17,12 @@ app.get('/',(req,res)=>{
 app.use('/api/capsules',cRoutes)
 app.use('/api/users',uRoutes)
 app.use('/api/paid_orders', pRoutes)
+app.use('/api/upload', picturesRoutes)
 app.get('/api/config/paypal',(req,res)=>res.send(process.env.PAYPAL))
+
+const __dirname = path.resolve()
+app.use('/front_part/public/pic',express.static(path.join(__dirname,'/front_part/public/pic')))
+
 app.use((err,req,res,next) => {
     const statusCode = (res.statusCode === 200)?200:res.statusCode
     res.status(statusCode)

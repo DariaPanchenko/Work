@@ -4,7 +4,8 @@ import bcrypt from 'bcryptjs'
 const usrForm = mongoose.Schema({
     name:{
         type: String,
-        required: true
+        required: true,
+        unique: true
     },
     email:{
         type: String,
@@ -38,6 +39,5 @@ usrForm.pre('save', async function (next) {   if(!this.isModified('password')){n
     const salt = await bcrypt.genSalt(10)
     this.password = await bcrypt.hash(this.password, salt)
 })
-
 const User = mongoose.model('User', usrForm)
 export default User

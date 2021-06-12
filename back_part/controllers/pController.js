@@ -85,6 +85,7 @@ const afterOrderPay = asyncHandler(async (req, res) => {
         throw new Error('Заказ не найден')
     }
 })
+
 //  get paid orders
 //  GET /api/paid_orders/get_orders pvt
 const getPaidUsrOrders = asyncHandler(async (req, res) => {

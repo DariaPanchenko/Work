@@ -3,7 +3,6 @@ import axios from "axios";
 
 export const addItem = (id)=>async (dispatch, getState)=>{
     const {data}=await axios.get(`/api/capsules/${id}`)
-
     dispatch({
         type: actionTypes.CART_ADD_EL,
         payload:{
